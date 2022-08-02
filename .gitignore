@@ -2,6 +2,7 @@
 StoreManager
 StoreManager_test
 .vscode
+.cmake
 #CMake
 CMakeLists.txt.user
 CMakeCache.txt

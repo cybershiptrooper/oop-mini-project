@@ -2,6 +2,6 @@
 
 int main(int argc, char const *argv[])
 {
-	testCustomerClass();
+	testCustomerPipeline();
 	return 0;
 }
