@@ -48,3 +48,6 @@ _deps
 *.exe
 *.out
 *.app
+
+# Misc
+.DS_Store
