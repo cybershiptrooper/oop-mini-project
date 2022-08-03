@@ -8,7 +8,7 @@ class Customer{
 		string address; //make a struct
 		string phone; //make a struct
 	public:
-		Customer(const string name, const string address, const char* phone): name(name), address(address), phone(phone){};
+		Customer(const string name, const string address, const string phone): name(name), address(address), phone(phone){};
 		string getName(){return name;};
 		string getAddress(){return address;};
 		string getPhone(){return phone;};

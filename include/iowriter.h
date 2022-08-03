@@ -24,7 +24,8 @@ public:
 	void gotoLine(const unsigned int num);
 	void goToEOF();
 	bool readIsFinished(){return file.eof();};
-	vector<string> readFromBeginning();
+	list<string> readFromBeginning();
+	void writeFromBeginning(list<string> data);
 };
 
 //Exception filename

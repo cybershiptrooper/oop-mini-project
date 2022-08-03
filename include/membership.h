@@ -13,6 +13,7 @@ class Membership{
 		virtual ~Membership(){};
 		double getFees(){return fees;};
 		double getDiscount(){return discount;};
+		string getType(){return type;};
 };
 
 class ClassicMembership: public Membership{

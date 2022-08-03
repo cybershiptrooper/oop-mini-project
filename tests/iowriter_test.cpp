@@ -12,25 +12,36 @@ bool testIOWriterClass(){
 	remove("demo.log");
 	IOWriter writer("demo.log");
 	// Read/Write
+	cout << "  Testing IOWriter read/write\n";
 	writer.append(hunter);
+	// cout << "  1\n";
 	writer.append(boy);
-	auto ans = writer.readFromBeginning();
-	assert(ans.size() == 3);
-	ans = writer.readFromBeginning();
-	assert(ans[0] == hunter);
-	assert(ans[1] == boy);
-	assert(ans.size() == 3);
+	// cout << "  2\n";
+	auto ansl = writer.readFromBeginning();
+	// cout << "  R\n";
+	vector<string> ans1;
+	for(auto i : ansl){ans1.push_back(i);}
+	assert(ans1.size() == 3);
+	assert(ans1[0] == hunter);
+	assert(ans1[1] == boy);
+	assert(ans1.size() == 3);
 	// Replace 
+	cout << "  Testing IOWriter replace\n";
 	writer.replaceLine(2, man);
-	ans = writer.readFromBeginning();
-	assert(ans[0] == hunter);
-	assert(ans[1] == man);
-	assert(ans.size() == 3);
+	ansl = writer.readFromBeginning();
+	vector<string> ans2;
+	for(auto i : ansl){ans2.push_back(i);}
+	assert(ans2[0] == hunter);
+	assert(ans2[1] == man);
+	assert(ans2.size() == 3);
 	// Delete
+	cout << "  Testing IOWriter delete\n";
 	writer.deleteLine(2);
-	ans = writer.readFromBeginning();
-	assert(ans[0] == hunter);
-	assert(ans.size() == 2);
+	ansl = writer.readFromBeginning();
+	vector<string> ans3;
+	for(auto i : ansl){ans3.push_back(i);}
+	assert(ans3[0] == hunter);
+	assert(ans3.size() == 2);
 
 	cout << "Testing completed\n";
 	return true;

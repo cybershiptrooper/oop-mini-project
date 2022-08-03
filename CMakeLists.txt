@@ -9,9 +9,12 @@ add_executable(StoreManager
 	src/iowriter.cpp 
 	src/customerWrapper.cpp
 	src/customerParser.cpp
+	src/customerManager.cpp
 	src/main.cpp)
 	
 add_executable(StoreManager_test  
 	src/iowriter.cpp 
+	src/customerWrapper.cpp
 	src/customerParser.cpp
+	src/customerManager.cpp
 	tests/main.cpp)

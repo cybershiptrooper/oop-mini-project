@@ -25,7 +25,7 @@ void IOWriter::editLine(const unsigned int num, const string edited){
 	char* path = const_cast<char*>(filename.c_str());
 	remove(path);
 	rename("temp.log", path);
-	file.open(filename, ios::out | ios::app | ios::in);
+	file.open(filename, ios::out | ios::in);
 }
 
 void IOWriter::replaceLine(const unsigned int num, const string edited){
@@ -55,11 +55,20 @@ void IOWriter::goToEOF(){
 	}
 
 }
+void IOWriter::writeFromBeginning(list<string> data){
+	file.close();
+	file.open(filename, ios::out | ios::trunc);
+	for(string i : data){
+		file<<i<<endl;
+	}
+	file.close();
+	file.open(filename, ios::out | ios::app | ios::in);
+}
 
-vector<string> IOWriter::readFromBeginning(){
+list<string> IOWriter::readFromBeginning(){
 
 	file.seekg(ios::beg);
-	vector<string> ans;
+	list<string> ans;
 	while(!file.eof()){
 		string s;
 		getline(file, s);

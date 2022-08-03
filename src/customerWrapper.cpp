@@ -7,13 +7,16 @@ map<unsigned int, string> CustomerWrapper::membership_cats = {
 };
 
 CustomerWrapper::CustomerWrapper(
-	const string name, const string address, const char* phone,
 	const unsigned int ID,
+	const string name, const string address, const string phone,
 	const string choice): 
-		customerID(ID), customerMembership(NULL),
+		serialID(ID), customerMembership(NULL),
 		customer(make_shared<Customer>(name, address, phone)) {
-		if(choice == membership_cats[1]) customerMembership = new ClassicMembership();
-		else if(choice == membership_cats[2]) customerMembership = new GoldMembership();
-		else if(choice == membership_cats[3]) customerMembership = new PlatinumMembership();
+		if(choice == membership_cats[1]) 
+			customerMembership = dynamic_pointer_cast<Membership>(make_shared<ClassicMembership>());
+		else if(choice == membership_cats[2]) 
+			customerMembership = dynamic_pointer_cast<Membership>(make_shared<GoldMembership>());
+		else if(choice == membership_cats[3]) 
+			customerMembership = dynamic_pointer_cast<Membership>(make_shared<PlatinumMembership>());
 		else cout<<"Please choose an item from the list\n";
 }
