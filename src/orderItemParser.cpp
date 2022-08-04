@@ -29,7 +29,7 @@ string OrderItemParser::parseToStr(shared_ptr<OrderItem> data){
 
 shared_ptr<OrderItem> OrderItemParser::parseFromStr(string str, unsigned int orderID){
 	stringstream ss(str);
-	string custPhone, prodName, quantity, time, total;
+	string custPhone, prodName, quantity, total, time;
 	getline(ss, custPhone, ';');
     shared_ptr<CustomerWrapper> custWrap = CustomerManager::getInstance().searchCustomer(custPhone);
     auto customer = custWrap->getCustomer();
@@ -39,7 +39,8 @@ shared_ptr<OrderItem> OrderItemParser::parseFromStr(string str, unsigned int ord
 	getline(ss, quantity, ';');
     getline(ss, time, ';');
 	getline(ss, total, ';'); 
-	return make_shared<OrderItem>(orderID, customer, product, quantity, time, total);
+	char* tm = const_cast<char*>(time.c_str());
+	return make_shared<OrderItem>(orderID, customer, product, quantity, tm, total);
 }
 
 //should be method of Parser class

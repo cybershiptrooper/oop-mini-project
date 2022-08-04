@@ -10,6 +10,9 @@ add_executable(StoreManager
 	src/customerWrapper.cpp
 	src/customerParser.cpp
 	src/customerManager.cpp
+	src/orderItem.cpp
+	src/orderItemManager.cpp
+	src/orderItemParser.cpp
 	
 	src/displayManager.cpp
 	src/adminServiceDM.cpp
@@ -24,4 +27,7 @@ add_executable(StoreManager_test
 	src/customerWrapper.cpp
 	src/customerParser.cpp
 	src/customerManager.cpp
+	src/orderItem.cpp
+	src/orderItemManager.cpp
+	src/orderItemParser.cpp
 	tests/main.cpp)

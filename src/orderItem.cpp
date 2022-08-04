@@ -7,24 +7,19 @@
 #include "Product.h"
 using namespace std;
 
-//constructor
 OrderItem::OrderItem(int id,
-	Customer* customer,
-    Product* product,
-    int qty,
-	char* tm,
-    int total){
-        this->id = rand();
-        this->customer = customer;
-        this->product = product;
-        this->qty = qty;
-        time_t curr_time;
-        curr_time = time(NULL);
-        char *tm = ctime(&curr_time);
-        this->tm = tm;
-        this->total = total;
-}
-
+	        Customer* customer,
+            Product* product,
+            int qty,
+            char* tm,
+            int total){
+                this->id = rand();
+                this->customer = customer;
+                this->product = product;
+                this->qty = qty;
+                this->tm = tm;
+                this->total = total;
+    }
 //getter methods
 Customer* OrderItem::getCustomer(){
     return this->customer;

@@ -2,8 +2,8 @@
 #include <string>
 #include <vector>
 #include <sstream>
-#include "OrderItem.h"
-#include "OrderItemManager.h"
+#include "orderItem.h"
+#include "orderItemManager.h"
 #include "iowriter.h"
 using namespace std;
 

@@ -13,7 +13,12 @@ class OrderItem{
 		char* tm;
         int total;
 	public:
-		OrderItem(int id, Customer* customer, Product* product, int qty, char* tm, int total): id(id), customer(customer), product(product), qty(qty), tm(tm), total(total){};
+        OrderItem(int id,
+	        Customer* customer,
+            Product* product,
+            int qty,
+            char* tm,
+            int total);
         //getter methods
         int getID();
         Customer* getCustomer();
