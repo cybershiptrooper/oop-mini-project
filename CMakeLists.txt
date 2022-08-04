@@ -13,6 +13,8 @@ add_executable(StoreManager
 	src/smprogram.cpp
 	src/adminServiceDM.cpp
 	src/customerServiceDM.cpp
+	src/productManager.cpp
+	src/productParser.cpp
 	src/main.cpp)
 	
 add_executable(StoreManager_test  
@@ -20,4 +22,10 @@ add_executable(StoreManager_test
 	src/customerWrapper.cpp
 	src/customerParser.cpp
 	src/customerManager.cpp
+	src/productManager.cpp
+	src/productParser.cpp
 	tests/main.cpp)
+
+
+
+

@@ -1,4 +1,4 @@
-
+#pragma once
 #include <string>
 #include <map>
 #include <Product.h>
@@ -11,7 +11,7 @@ class ProductWrapper
     string category;
 
 public:
-    ProductWrapper(const string name, const double cost, string category, const int stock) :  category(category), stock(stock) { product = shared_ptr<Product>(new Product(name, cost)); };
+    ProductWrapper(const string name, const double cost, const string category, const int stock) :  category(category), stock(stock) { product = shared_ptr<Product>(new Product(name, cost)); };
     ~ProductWrapper(){};
 
     int getStock() { return stock; }

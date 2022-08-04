@@ -1,4 +1,4 @@
-#include "ProductManager.h"
+#include "productManager.h"
 
 shared_ptr<ProductWrapper> ProductManager::searchProduct(string prodName){
 	for (auto i : registeredProducts)

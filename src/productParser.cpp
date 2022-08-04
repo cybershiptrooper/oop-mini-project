@@ -1,4 +1,4 @@
-#include "ProductParser.h"
+#include "productParser.h"
 
 string ProductParser::parseToStr(shared_ptr<ProductWrapper> data){
 	string ans = "";
@@ -20,7 +20,7 @@ shared_ptr<ProductWrapper> ProductParser::parseFromStr(string str){
 	getline(ss, cost, ';'); 
 	getline(ss, category, ';');
 	getline(ss, stock, ';'); 
-	return make_shared<ProductWrapper>(name, cost, category, stock);
+	return make_shared<ProductWrapper>(name, stoi(cost), category, stoi(stock));
 }
 string ProductParser::getColumnAsStr(){
 	string header;
