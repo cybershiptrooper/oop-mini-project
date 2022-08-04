@@ -1,63 +1,27 @@
+#pragma once
 #include "productWrapper.h"
 #include <vector>
 #include <map>
-// #include "customerParser.h"
+// #include "ProductParser.h"
 
 class ProductManager
 {
 private:
-    ProductWrapper *p;
-    map<string, vector<ProductWrapper *>> registeredProducts;
-    ProductManager() : p(nullptr), registeredProducts(map<string, vector<ProductWrapper *>>()) {}
-    static ProductManager *pm;
+    shared_ptr<ProductWrapper> p;
+    map<string, vector<shared_ptr<ProductWrapper>>> registeredProducts;
+    ProductManager() : p(nullptr), registeredProducts(map<string, vector<shared_ptr<ProductWrapper>>>()) {}
+    ProductManager(const ProductManager &s) = delete;
+    ProductManager &operator=(const ProductManager &s) = delete;
 
 public:
-    static ProductManager *CreateInstance()
+    static ProductManager &getInstance()
     {
-        if (pm == NULL)
-            pm = new ProductManager();
-        return pm;
+        static ProductManager PM;
+        return PM;
     }
-
-    static void DeleteInstance()
-    {
-        if (pm)
-            delete pm;
-    }
-    // ProductManager(): p(nullptr), registeredProducts(map<string, vector<ProductWrapper*> >()){}
-    ~ProductManager() {}
-
-    ProductWrapper *searchProduct(string productName)
-    {
-        for (auto i : registeredProducts)
-        {
-            for (auto j : i.second)
-            {
-                if (j->getProduct()->getName() == productName)
-                {
-                    return j;
-                }
-            }
-        }
-        return NULL;
-    }
-
-    void deleteProduct()
-    {
-        delete[] p;
-    }
-
-    void addProduct(string name, double cost, string category, double productID, int stock)
-    {
-        ProductWrapper *p1 = new ProductWrapper(productID, stock, name, cost);
-        registeredProducts[category].push_back(p1);
-        return;
-    }
-
-    ProductWrapper *getCatalouge()
-    {
-        return p;
-    }
+    
+    shared_ptr<ProductWrapper> searchProduct(string productName);
+    void addProduct(shared_ptr<ProductWrapper> p);
+    map<string, vector<shared_ptr<ProductWrapper>>> getCatalouge() { return registeredProducts; }
+    void deleteProduct(string name);
 };
-
-ProductManager *ProductManager::pm = NULL;

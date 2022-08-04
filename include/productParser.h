@@ -1,21 +1,33 @@
+#pragma once
 #include <string>
+#include <memory>
+#include <vector>
+#include <sstream>
+#include <assert.h>
+#include "ProductWrapper.h"
+#include "ProductManager.h"
+#include "iowriter.h"
 using namespace std;
 
 class ProductParser
 {
 private:
-    const string file_name;
-    ProductParser() : file_name("data/Product.data"){};
-    ProductParser(const ProductParser &s) = delete;
-    ProductParser &operator=(const ProductParser &s) = delete;
+	const vector<string> columns = {"Name", "Cost", "Category", "Stock"};
+	IOWriter file_manager;
+	ProductParser(): file_manager(IOWriter("data/Product.data")){};
+	ProductParser(const ProductParser& s) = delete;
+	ProductParser& operator=(const ProductParser& s) = delete;
 
+	string parseToStr(shared_ptr<ProductWrapper> data);
+	shared_ptr<ProductWrapper> parseFromStr(string str);
+	string getColumnAsStr();
 public:
-    string setFileName() { return file_name; };
-    static ProductParser &getInstance()
-    {
-        static ProductParser CP;
-        return CP;
-    }
-    bool read();
-    bool write();
+	static ProductParser& getInstance(){
+		static ProductParser PP;
+		return PP;
+	}
+	void readFile();
+	void writeFile();
 };
+
+//Exception for Parse from str

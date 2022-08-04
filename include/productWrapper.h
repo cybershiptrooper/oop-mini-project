@@ -6,26 +6,19 @@ using namespace std;
 
 class ProductWrapper
 {
-    Product *product;
-    const unsigned int productID;
+    shared_ptr<Product> product;
     int stock;
+    string category;
 
 public:
-    ProductWrapper(double productID, int stock, string name, double cost) : productID(productID), stock(stock)
-    {
-        product = new Product(name, cost);
-        
-    }
-    ~ProductWrapper() { delete product; }
+    ProductWrapper(const string name, const double cost, string category, const int stock) :  category(category), stock(stock) { product = shared_ptr<Product>(new Product(name, cost)); };
+    ~ProductWrapper(){};
 
-    double getID() { return productID; }
-    
     int getStock() { return stock; }
-    Product *getProduct() { return product; }
+    void updateStock(int newStock) { stock = newStock; }
+    auto getProduct() { return product; }
+    auto getCategory(){return category;}
 };
-
-
-
 
 // TODO
 // category int mapping
