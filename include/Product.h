@@ -1,4 +1,4 @@
-
+#pragma once
 #include <string>
 
 using namespace std;
@@ -10,7 +10,7 @@ private:
     double cost;
 
 public:
-    Product(string name, double cost) : name(name), cost(cost) {}
+    Product(const string name, const double cost) : name(name), cost(cost) {}
     ~Product() {}
     string getName() { return name; }
     double getCost() { return cost; }
