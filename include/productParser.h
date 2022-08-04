@@ -4,8 +4,8 @@
 #include <vector>
 #include <sstream>
 #include <assert.h>
-#include "ProductWrapper.h"
-#include "ProductManager.h"
+#include "productWrapper.h"
+#include "productManager.h"
 #include "iowriter.h"
 using namespace std;
 

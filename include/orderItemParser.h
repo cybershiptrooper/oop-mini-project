@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <memory>
 #include <sstream>
 #include "orderItem.h"
 #include "orderItemManager.h"

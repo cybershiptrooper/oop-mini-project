@@ -3,10 +3,11 @@
 #include "customerManager.h"
 #include "customer.h"
 #include "productManager.h"
+#include "iowriter.h"
 
 string OrderItemParser::parseToStr(shared_ptr<OrderItem> data){
 	string ans = "";
-    ans += data->getID();
+    ans += std::to_string(data->getID());
     ans += ";";
 	ans += data->getCustomer()->getName();
 	ans += ";";
@@ -32,26 +33,28 @@ shared_ptr<OrderItem> OrderItemParser::parseFromStr(string str, unsigned int ord
 	string custPhone, prodName, quantity, total, time;
 	getline(ss, custPhone, ';');
     shared_ptr<CustomerWrapper> custWrap = CustomerManager::getInstance().searchCustomer(custPhone);
-    auto customer = custWrap->getCustomer();
+    shared_ptr<Customer> customer = custWrap->getCustomer();
 	getline(ss, prodName, ';');
     shared_ptr<ProductWrapper> prodWrap = ProductManager::getInstance().searchProduct(prodName);
     shared_ptr<Product> product = prodWrap->getProduct();
 	getline(ss, quantity, ';');
+	int qty = stoi(quantity);
+	int total1 = stoi(total);
     getline(ss, time, ';');
 	getline(ss, total, ';'); 
 	char* tm = const_cast<char*>(time.c_str());
-	return make_shared<OrderItem>(orderID, customer, product, quantity, tm, total);
+	return make_shared<OrderItem>(orderID, customer, product, qty, tm, total1);
 }
 
 //should be method of Parser class
-/*string CustomerParser::getColumnAsStr(){
+string OrderItemParser::getColumnAsStr(){
 	string header;
 	for(auto i : columns){
 		header += i;
 		header += ";";
 	}
 	return header;
-}*/
+}
 
 void OrderItemParser::readFile(){
 	list<string> data = file_manager.readFromBeginning();

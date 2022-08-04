@@ -1,4 +1,3 @@
-#pragma once
 #include <string>
 #include <iostream>
 #include <ctime>
@@ -7,24 +6,14 @@
 #include "Product.h"
 using namespace std;
 
-OrderItem::OrderItem(int id,
-	        Customer* customer,
-            Product* product,
-            int qty,
-            char* tm,
-            int total){
-                this->id = rand();
-                this->customer = customer;
-                this->product = product;
-                this->qty = qty;
-                this->tm = tm;
-                this->total = total;
-    }
 //getter methods
-Customer* OrderItem::getCustomer(){
+int OrderItem::getID(){
+    return id;
+}
+shared_ptr<Customer> OrderItem::getCustomer(){
     return this->customer;
 }
-Product* OrderItem::getProduct(){
+shared_ptr<Product> OrderItem::getProduct(){
     return this->product;
 }
 int OrderItem::getQuantity(){
@@ -41,6 +30,6 @@ int OrderItem::getTotal(){
 void OrderItem::setQuantity(int qty){
     this->qty = qty;
 }
-void OrderItem::setProduct(Product* product){
+void OrderItem::setProduct(shared_ptr<Product> product){
     this->product = product;
 }
