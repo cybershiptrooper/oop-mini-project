@@ -1,4 +1,3 @@
-
 #include "productManager.h"
 #include <vector>
 #include <map>
@@ -34,4 +33,9 @@ public:
         pm.addProduct(p);
     }
 	
+public:
+	static BackendService& getInstance(){
+		static BackendService CM;
+		return CM;
+	}
 };
