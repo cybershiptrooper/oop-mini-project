@@ -24,4 +24,6 @@ public:
     void addProduct(shared_ptr<ProductWrapper> p);
     map<string, vector<shared_ptr<ProductWrapper>>> getCatalouge() { return registeredProducts; }
     void deleteProduct(string name);
+    void DisplayProduct(shared_ptr<ProductWrapper> p);
+
 };

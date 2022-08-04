@@ -1,4 +1,7 @@
+#include <iostream>
 #include "productManager.h"
+
+using namespace std;
 
 shared_ptr<ProductWrapper> ProductManager::searchProduct(string prodName){
 	for (auto i : registeredProducts)
@@ -20,6 +23,15 @@ void ProductManager::addProduct(shared_ptr<ProductWrapper> p){
         return;
 }
 
+void ProductManager::DisplayProduct(shared_ptr<ProductWrapper> p){
+    cout<<"Name: "<<p->getProduct()->getName()<<endl;
+    cout<<"Cost: "<<p->getProduct()->getCost()<<endl;
+    cout<<"Category: "<<p->getCategory()<<endl;
+    cout<<"Stock: "<<p->getStock()<<endl;
+
+    return;
+    
+}
 
 void ProductManager::deleteProduct(string name){
 

@@ -20,21 +20,37 @@ bool testProductClass()
 	return true;
 }
 
+bool testProdWrapperClass(){
 
-bool testCustomerPipeline(){
-	testProductClass();
-	// testMembershipClass();
-	// testWrapperClass();
-	// testManagerClass();
+	string name = "abc";
+	double cost = 300;
+	string cat = "food";
+	int stock = 5;
+	ProductWrapper pw(name, cost, cat, stock);
+	assert(stock == pw.getStock());
+	auto prod = pw.getProduct();
+	assert(name == prod->getName());
 	return true;
 }
-// bool testWrapperClass(){
-// 	string addr = "xyz";
-// 	string name = "abc";
-// 	char phone[11] = "1234567890";
-// 	char phone2[11] = "0987654321";
-// 	auto cats = CustomerWrapper::getMembershipCats();
-// 	CustomerWrapper wrapper(2, name, addr, phone, cats[2]);
-// 	// TODO
-// 	return true;
-// }
+
+bool testProdManagerClass(){
+	string name = "abc";
+	double cost = 300;
+	string cat = "food";
+	int stock = 5;
+	ProductManager &pm = ProductManager::getInstance();
+
+	pm.addProduct(make_shared<ProductWrapper>(name, cost, cat, stock));
+	auto p = pm.searchProduct(name);
+	pm.DisplayProduct(p);
+	
+	return true;
+
+}
+
+bool testProductPipeline(){
+	testProductClass();
+	testProdWrapperClass();
+	testProdManagerClass();
+	return true;
+}
