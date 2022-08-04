@@ -1,20 +1,23 @@
-#include "OrderItemWrapper.h"
+#pragma once
 #include <list>
-#include "OrderItemParser.h"
+#include <map>
+#include"orderItem.h"
 
 class OrderItemManager
 {
 private:
-	map<string, list<shared_ptr<OrderItem*>>> orderedItems; 
+	list<shared_ptr<OrderItem>> orderedItems; 
 	OrderItemManager(){};
-	//OrderItemManager(const OrderItemManager& s) = delete;
-	//OrderItemManager& operator=(const OrderItemManager& s) = delete;
+	OrderItemManager(const OrderItemManager& s) = delete;
+	OrderItemManager& operator=(const OrderItemManager& s) = delete;
 		
 public:
 	static OrderItemManager& getInstance(){
 		static OrderItemManager OM;
 		return OM;
 	}
-    static OrderItemManager& deleteInstance(){}
-	void placeOrder(){/*TODO*/};
+	~OrderItemManager(){};
+    static OrderItemManager& deleteInstance(){};
+	void addItem(shared_ptr<OrderItem> item);
+	void getListOfOrderedItems();
 };
