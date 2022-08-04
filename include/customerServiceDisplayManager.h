@@ -1,19 +1,11 @@
-#include <iostream>
-#include <string>
-using namespace std;
+#pragma once
+#include "displayManager.h"
 
-class CustomerServiceDisplayManager
+class CustomerServiceDisplayManager: public DisplayManager
 {
 private:
-	// CustomerServiceDisplayManager() {};
-	// CustomerServiceDisplayManager(const CustomerServiceDisplayManager& s) = delete;
-	// CustomerServiceDisplayManager& operator=(const CustomerServiceDisplayManager& s) = delete;
 public:
-	// static CustomerServiceDisplayManager& getInstance() {
-
-	// 		static CustomerServiceDisplayManager DM;
-	// 		return DM;
-	// 	}
 	int displayStartMenu();
+	bool getExitConfirmation(){return true;};
 };
 
