@@ -19,6 +19,7 @@ public:
     void updateStock(int newStock) { stock = newStock; }
     auto getProduct() { return product; }
     auto getCategory(){return category;}
+    
 };
 
 // TODO
