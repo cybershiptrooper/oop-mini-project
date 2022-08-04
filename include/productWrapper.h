@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
 #include <map>
-#include <Product.h>
+#include <memory>
+#include "Product.h"
 using namespace std;
 
 class ProductWrapper
