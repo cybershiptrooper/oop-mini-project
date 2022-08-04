@@ -1,8 +1,6 @@
-#include <iostream>
-#include <string>
-using namespace std;
+#include "displayManager.h"
 
-class AdminServiceDisplayManager
+class AdminServiceDisplayManager: public DisplayManager
 {
 private:
 	// AdminServiceDisplayManager() {};

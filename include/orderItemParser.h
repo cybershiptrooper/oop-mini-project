@@ -1,24 +1,33 @@
+#pragma once
 #include <string>
+#include <vector>
+#include <sstream>
+#include "OrderItem.h"
+#include "OrderItemManager.h"
+#include "iowriter.h"
 using namespace std;
+
 
 class OrderItemParser
 {
 private:
-	const string file_name;
-	OderItemParser(): file_name("data/orderitem.data"){};
-	//OrderItemParser(const OrderItemParser& s) = delete;
-	//OrderItemParser& operator=(const OrderItemParser& s) = delete;
+	const vector<string> columns = {"custPhone", "prodName", "quantity", "time", "total"};
+	IOWriter file_manager;
+	OrderItemParser(): file_manager(IOWriter("data/orderItem.data")){};
+	OrderItemParser(const OrderItemParser& s) = delete;
+	OrderItemParser& operator=(const OrderItemParser& s) = delete;
+
+	string parseToStr(shared_ptr<OrderItem> data);
+	shared_ptr<OrderItem> parseFromStr(string str, unsigned int orderID);
+	string getColumnAsStr();
 public:
-    ~OderItemParser();
-	string getFileName(){return file_name;};
 	static OrderItemParser& getInstance(){
 		static OrderItemParser OP;
 		return OP;
 	}
-    void deleteInstance();
-	bool read();
-	bool write();
-
+	void readFile();
+	void writeFile();
 };
 
 //TODO - destructor, deleteInstance()
+//cols - custPhone, prodName, 

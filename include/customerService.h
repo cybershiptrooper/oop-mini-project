@@ -1,22 +1,19 @@
 #include "customerServiceDisplayManager.h"
+#include "frontendService.h"
 
-class CustomerService
+class CustomerService: public FrontendService
 {
 private:
-	CustomerServiceDisplayManager DM;
-
-	CustomerService(){};
-	CustomerService(const CustomerService& s) = delete;
-	CustomerService& operator=(const CustomerService& s) = delete;
+	CustomerServiceDisplayManager* getDM(){
+		return &(*dynamic_pointer_cast<CustomerServiceDisplayManager>(DM));
+		}
 public:
-	static CustomerService& getInstance() {
+	CustomerService(): FrontendService(Representative){
+		 DM = make_shared<CustomerServiceDisplayManager>();
+	};
 
-		static CustomerService CS;
-		return CS;
-	}
-
-	void start(){
-		int choice = DM.displayStartMenu();
-	}
+	void start();
+	void customerInterface();
+	void cartManager();
 };
 

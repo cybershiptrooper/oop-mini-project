@@ -1,4 +1,4 @@
-#include "smprogram.h"
+#include "smProgram.h"
 int main(int argc, char const *argv[])
 {
 	SMProgram p;

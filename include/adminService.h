@@ -1,22 +1,18 @@
 #include "adminServiceDisplayManager.h"
+#include "frontendService.h"
 
-class AdminService
+class AdminService: FrontendService
 {
 private:
-	AdminServiceDisplayManager DM;
-
-	AdminService(){};
-	AdminService(const AdminService& s) = delete;
-	AdminService& operator=(const AdminService& s) = delete;
+	AdminServiceDisplayManager* getDM(){
+		return &(*dynamic_pointer_cast<AdminServiceDisplayManager>(DM));
+		}
 public:
-	static AdminService& getInstance() {
-
-		static AdminService CS;
-		return CS;
-	}
-
+	AdminService(): FrontendService(Representative){
+		 DM = make_shared<AdminServiceDisplayManager>();
+	};
 	void start(){
-		int choice = DM.displayStartMenu();
+		int choice = getDM()->displayStartMenu();
 	}
 };
 
