@@ -18,6 +18,6 @@ public:
 	}
 	~OrderItemManager(){};
     static OrderItemManager& deleteInstance(){};
-	void addItem(shared_ptr<OrderItem> item);
-	void getListOfOrderedItems();
+	void addOrderItem(shared_ptr<OrderItem> item);
+	auto getListOfOrderedItems(){return orderedItems;};
 };
