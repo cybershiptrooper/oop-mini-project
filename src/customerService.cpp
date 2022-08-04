@@ -10,10 +10,13 @@ void CustomerService::start(){
 				break;
 			case 2:
 				displayProducts();
+				break;
 			case 3:
 				customerInterface();
+				break;
 			case 4:
 				cartManager();
+				break;
 			default:
 				if(getDM()->getExitConfirmation())return;
 				break;

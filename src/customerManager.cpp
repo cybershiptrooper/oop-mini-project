@@ -12,21 +12,21 @@ void CustomerManager::addCustomer(shared_ptr<CustomerWrapper> customer){
 	// writeline();
 }
 
-void CustomerManager::deleteCustomer(int ID){
+void CustomerManager::deleteCustomer(string phone){
 	auto it = registeredCustomers.begin();
-	unsigned int i = (*it)->getID();
+	// unsigned int i = (*it)->getID();
 	for(; it != registeredCustomers.end(); it++){
-		if((*it)->getID() == ID){
-			auto it2 = registeredCustomers.end();
-			it2--;//last elem
-			swap(*it, *it2);
+		if((*it)->getCustomer()->getPhone() == phone){
+			// auto it2 = registeredCustomers.end();
+			// it2--;//last elem
+			registeredCustomers.erase(it);
 			break;
 		}
-		i++;
+		// i++;
 	}
-	int endID = (*it)->getID();
+	// int endID = (*it)->getID();
 	registeredCustomers.pop_back();
-	(*it)->updateID(i);
+	// (*it)->updateID(i);
 	//replaceline at ID
 	//remove line at end
 }

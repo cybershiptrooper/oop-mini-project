@@ -6,7 +6,7 @@
 
 class CustomerWrapper{
 	private:
-		unsigned int serialID;
+		// unsigned int serialID;
 		shared_ptr<Customer> customer;
 		shared_ptr<Membership> customerMembership;
 		// Membership* customerMembership;
@@ -14,7 +14,7 @@ class CustomerWrapper{
 		
 	public:
 		CustomerWrapper(
-			const unsigned int ID,
+			// const unsigned int ID,
 			const string name, const string address, const string phone,
 			const string choice = "None"
 		);
@@ -23,8 +23,8 @@ class CustomerWrapper{
 		void setMembership(const string choice);
 		auto getCustomer(){return customer;};
 		static map<unsigned int, string> getMembershipCats(){return CustomerWrapper::membership_cats;};
-		unsigned int getID(){return serialID;};
-		void updateID(int ID){serialID = ID;};
+		// unsigned int getID(){return serialID;};
+		// void updateID(int ID){serialID = ID;};
 };
 
 //Add exception for Membership already defined, choice out of bounds

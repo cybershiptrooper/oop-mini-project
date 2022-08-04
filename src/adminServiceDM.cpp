@@ -1,6 +1,15 @@
 #include "adminServiceDisplayManager.h"
 
 int AdminServiceDisplayManager::displayStartMenu(){
-		std::cout<<"main loop"<<endl;
-		return -1;
+		int max_choices = 0;
+		cout<<"Please select an option to proceed: \n";
+		max_choices++;cout<<max_choices<<". Search for a Product\n";
+		max_choices++;cout<<max_choices<<". View inventory stats\n";
+		max_choices++;cout<<max_choices<<". Add a new Product\n";
+		// max_choices++;cout<<max_choices<<". \n";
+		max_choices++;cout<<max_choices<<". Exit\n";
+		cout<<" --> ";
+		int choice = getChoice(max_choices);
+		if(choice == -1) return displayStartMenu();
+		return choice;
 }

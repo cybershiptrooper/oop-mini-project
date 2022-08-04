@@ -45,7 +45,8 @@ bool testWrapperClass(){
 	char phone[11] = "1234567890";
 	char phone2[11] = "0987654321";
 	auto cats = CustomerWrapper::getMembershipCats();
-	CustomerWrapper wrapper(2, name, addr, phone, cats[2]);
+	// CustomerWrapper wrapper(2, name, addr, phone, cats[2]);
+	CustomerWrapper wrapper(name, addr, phone, cats[2]);
 	// TODO
 	return true;
 }

@@ -20,6 +20,8 @@ add_executable(StoreManager
 	src/customerServiceDM.cpp
 	src/productManager.cpp
 	src/productParser.cpp
+	src/frontendService.cpp
+	src/adminService.cpp
 
 	src/smProgram.cpp
 	src/main.cpp)

@@ -13,14 +13,17 @@ string CustomerParser::parseToStr(shared_ptr<CustomerWrapper> data){
 	return ans;
 }
 
-shared_ptr<CustomerWrapper> CustomerParser::parseFromStr(string str, unsigned int serialID){
+shared_ptr<CustomerWrapper> CustomerParser::parseFromStr(string str
+// , unsigned int serialID
+){
 	stringstream ss(str);
 	string name, address, phone, membership;
 	getline(ss, name, ';'); //Exception!!
 	getline(ss, address, ';'); 
 	getline(ss, phone, ';');
 	getline(ss, membership, ';'); 
-	return make_shared<CustomerWrapper>(serialID, name, address, phone, membership);
+	// return make_shared<CustomerWrapper>(serialID, name, address, phone, membership);
+	return make_shared<CustomerWrapper>(name, address, phone, membership);
 }
 string CustomerParser::getColumnAsStr(){
 	string header;
@@ -37,7 +40,8 @@ void CustomerParser::readFile(){
 	data.pop_front();
 	int i = 1;
 	for(auto item : data){
-		auto customer = parseFromStr(item, i++);
+		// auto customer = parseFromStr(item, i++);
+		auto customer = parseFromStr(item);
 		CustomerManager::getInstance().addCustomer(customer);
 	}
 }

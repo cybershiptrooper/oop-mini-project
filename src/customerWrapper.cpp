@@ -7,10 +7,11 @@ map<unsigned int, string> CustomerWrapper::membership_cats = {
 };
 
 CustomerWrapper::CustomerWrapper(
-	const unsigned int ID,
+	// const unsigned int ID,
 	const string name, const string address, const string phone,
 	const string choice): 
-		serialID(ID), customerMembership(NULL),
+		// serialID(ID), 
+		customerMembership(NULL),
 		customer(make_shared<Customer>(name, address, phone)) {
 		if(choice == membership_cats[1]) 
 			customerMembership = dynamic_pointer_cast<Membership>(make_shared<ClassicMembership>());

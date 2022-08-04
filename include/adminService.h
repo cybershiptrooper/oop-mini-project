@@ -11,8 +11,7 @@ public:
 	AdminService(): FrontendService(Representative){
 		 DM = make_shared<AdminServiceDisplayManager>();
 	};
-	void start(){
-		int choice = getDM()->displayStartMenu();
-	}
+	void start();
+	void addNewProduct();
 };
 

@@ -2,7 +2,7 @@
 #include <string>
 #include <map>
 #include <memory>
-#include "Product.h"
+#include "product.h"
 using namespace std;
 
 class ProductWrapper

@@ -1,8 +1,9 @@
 #pragma once
 #include <string>
 using namespace std;
+#include <memory>
 #include "customer.h"
-#include "Product.h"
+#include "product.h"
 
 class OrderItem{
 	private:

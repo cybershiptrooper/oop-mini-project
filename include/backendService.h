@@ -1,3 +1,4 @@
+#pragma once
 #include "productManager.h"
 #include <vector>
 #include <map>
@@ -32,10 +33,5 @@ public:
     void addProd(shared_ptr<ProductWrapper> p){
         pm.addProduct(p);
     }
-	
-public:
-	static BackendService& getInstance(){
-		static BackendService CM;
-		return CM;
-	}
+
 };

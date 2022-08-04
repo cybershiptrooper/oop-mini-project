@@ -16,7 +16,7 @@ public:
 		return CM;
 	}
 	shared_ptr<CustomerWrapper> searchCustomer(const string phone);//exception for phone
-	void deleteCustomer(int ID);
+	void deleteCustomer(string phone);
 	void addCustomer(shared_ptr<CustomerWrapper> customer);
 	auto getCustomerList(){return registeredCustomers;};
 

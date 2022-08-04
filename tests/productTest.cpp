@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Product.h"
+#include "product.h"
 #include "productManager.h"
 #include <assert.h>
 

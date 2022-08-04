@@ -19,7 +19,8 @@ private:
 	CustomerParser& operator=(const CustomerParser& s) = delete;
 
 	string parseToStr(shared_ptr<CustomerWrapper> data);
-	shared_ptr<CustomerWrapper> parseFromStr(string str, unsigned int serialID);
+	// shared_ptr<CustomerWrapper> parseFromStr(string str, unsigned int serialID);
+	shared_ptr<CustomerWrapper> parseFromStr(string str);
 	string getColumnAsStr();
 public:
 	static CustomerParser& getInstance(){

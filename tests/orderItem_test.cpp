@@ -3,7 +3,7 @@
 #include "orderItemManager.h"
 #include "orderItemParser.h"
 #include "customer.h"
-#include "Product.h"
+#include "product.h"
 #include <assert.h>
 #include <ctime>
 

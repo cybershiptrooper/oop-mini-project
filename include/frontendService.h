@@ -2,6 +2,7 @@
 #include "displayManager.h"
 #include "constants.h"
 #include <memory>
+#include "backendService.h"
 
 class FrontendService
 {
@@ -11,7 +12,7 @@ protected:
 	virtual DisplayManager* getDM(){return &(*DM);};
 public:
 	FrontendService(User user): user(user){};
-	void searchProduct(){/*TODO*/};
+	void searchProduct();
 	void displayProducts(){/*TODO*/};
 	virtual void start() = 0;
 	

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include "constants.h"
+#include "backendService.h"
 
 using namespace std;
 
@@ -12,5 +13,5 @@ class DisplayManager{
 		virtual int displayStartMenu()=0;
 		int getChoice(const unsigned int max_choices);
 		
-		int displayProductCategoryMenu(User user);
+		int displayProductCategoryMenu(User user, bool create = false);
 };
