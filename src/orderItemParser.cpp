@@ -28,7 +28,7 @@ string OrderItemParser::parseToStr(shared_ptr<OrderItem> data){
 	return ans;
 }
 
-shared_ptr<OrderItem> OrderItemParser::parseFromStr(string str, unsigned int orderID){
+shared_ptr<OrderItem> OrderItemParser::parseFromStr(string str){
 	stringstream ss(str);
 	string custPhone, prodName, quantity, total, time;
 	getline(ss, custPhone, ';');
@@ -41,17 +41,19 @@ shared_ptr<OrderItem> OrderItemParser::parseFromStr(string str, unsigned int ord
 	int qty = stoi(quantity);
 	int total1 = stoi(total);
     getline(ss, time, ';');
-	getline(ss, total, ';'); 
+	// getline(ss, total, ';'); 
 	char* tm = const_cast<char*>(time.c_str());
-	return make_shared<OrderItem>(orderID, customer, product, qty, tm, total1);
+	int orderID = OrderItemManager::getInstance().createID(customer, product);
+	return make_shared<OrderItem>(orderID, customer, product, qty, tm);
 }
 
 //should be method of Parser class
 string OrderItemParser::getColumnAsStr(){
 	string header;
-	for(auto i : columns){
-		header += i;
-		header += ";";
+	for(int i = 0; i < columns.size(); i++){
+		header += columns[i];
+		if(i < columns.size()-1)header += "; ";
+		else header += ";";
 	}
 	return header;
 }
@@ -60,9 +62,8 @@ void OrderItemParser::readFile(){
 	list<string> data = file_manager.readFromBeginning();
 	assert(getColumnAsStr() == data.front());
 	data.pop_front();
-	int i = 1;
 	for(auto item : data){
-		auto orderItem = parseFromStr(item, i++);
+		auto orderItem = parseFromStr(item);
 		OrderItemManager::getInstance().addOrderItem(orderItem);
 	}
 }

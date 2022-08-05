@@ -10,7 +10,6 @@ class CustomerWrapper{
 		shared_ptr<Customer> customer;
 		shared_ptr<Membership> customerMembership;
 		// Membership* customerMembership;
-		static map<unsigned int, string> membership_cats;
 		
 	public:
 		CustomerWrapper(
@@ -22,7 +21,7 @@ class CustomerWrapper{
 		auto getMembership(){return customerMembership;};
 		void setMembership(const string choice);
 		auto getCustomer(){return customer;};
-		static map<unsigned int, string> getMembershipCats(){return CustomerWrapper::membership_cats;};
+		// static map<unsigned int, string> getMembershipCats(){return CustomerWrapper::membership_cats;};
 		// unsigned int getID(){return serialID;};
 		// void updateID(int ID){serialID = ID;};
 };

@@ -8,7 +8,7 @@ private:
 		return &(*dynamic_pointer_cast<AdminServiceDisplayManager>(DM));
 		}
 public:
-	AdminService(): FrontendService(Representative){
+	AdminService(): FrontendService(Admin){
 		 DM = make_shared<AdminServiceDisplayManager>();
 	};
 	void start();

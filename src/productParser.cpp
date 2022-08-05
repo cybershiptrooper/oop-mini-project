@@ -24,9 +24,10 @@ shared_ptr<ProductWrapper> ProductParser::parseFromStr(string str){
 }
 string ProductParser::getColumnAsStr(){
 	string header;
-	for(auto i : columns){
-		header += i;
-		header += ";";
+	for(int i = 0; i < columns.size(); i++){
+		header += columns[i];
+		if(i < columns.size()-1)header += "; ";
+		else header += ";";
 	}
 	return header;
 }

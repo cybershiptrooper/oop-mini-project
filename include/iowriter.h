@@ -18,7 +18,12 @@ public:
 	// file.open(filename, ios::out | ios::app | ios::in);
 	};
 	// auto readNextLine();
-	// void append(string line){file << line << endl;};
+	void append(string line){
+		fstream file;
+		file.open(filename, ios::out | ios::app);
+		file << line << endl;
+		file.close();
+	};
 	// void replaceLine(const unsigned int num, const string edited);
 	// void deleteLine(const unsigned int num);
 	// unsigned int getLineNo(){return lineNo;};

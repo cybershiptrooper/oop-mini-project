@@ -14,7 +14,7 @@ class ProductParser
 private:
 	const vector<string> columns = {"Name", "Cost", "Category", "Stock"};
 	IOWriter file_manager;
-	ProductParser(): file_manager(IOWriter("data/Product.data")){};
+	ProductParser(): file_manager(IOWriter("data/product.data")){};
 	ProductParser(const ProductParser& s) = delete;
 	ProductParser& operator=(const ProductParser& s) = delete;
 

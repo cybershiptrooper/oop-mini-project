@@ -1,17 +1,36 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <limits>
 #include "constants.h"
 #include "backendService.h"
 
 using namespace std;
 
 class DisplayManager{
-	private:
+	protected:
 		string linebreak = "--------------------------\n";
 	public: 
 		virtual int displayStartMenu()=0;
 		int getChoice(const unsigned int max_choices);
-		
+		bool getBoolChoice();
+		string getName(string dataItem, string prefix = "Please enter the name of the ");
+		void createConfirm(string dataItem){cout<<dataItem<<" created!\n";};
 		int displayProductCategoryMenu(User user, bool create = false);
+		void displayProduct(shared_ptr<ProductWrapper> p);
+		void displayProducts();
+		void displayProducts(string category);
+		void productNotFound(){cout<<"Sorry, but this product is unavailable\n";}
+		virtual bool displayManageProductMenu(shared_ptr<ProductWrapper> product){
+			displayProduct(product);
+			return false;
+		};
+		void clearCIN(){
+			cin.sync();
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(),'\n');
+		}
+
+		
 };
+

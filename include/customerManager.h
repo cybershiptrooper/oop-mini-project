@@ -1,6 +1,7 @@
 #pragma once
 #include "customerWrapper.h"
 #include <list>
+#include "customerParser.h"
 
 class CustomerManager
 {

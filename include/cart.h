@@ -11,13 +11,14 @@ private:
 public:
 	
 	bool addCustomer(weak_ptr<CustomerWrapper> c){
-		if(customer.get() != NULL){return false;}
+		if(customer.lock()){return false;}
 		customer = c;
 		return true;
 	};
 	void removeCustomer(){customer.reset();};
 	bool checkOutValid(){
-		if(customer.get() != NULL) return true;
+		if(!customer.lock()) return true;
+		return false;
 	};
 	bool addMembershipToBill();
 	bool getTotal(){/*TODO*/};

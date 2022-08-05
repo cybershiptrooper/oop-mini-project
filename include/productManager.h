@@ -7,9 +7,8 @@
 class ProductManager
 {
 private:
-    shared_ptr<ProductWrapper> p;
     map<string, vector<shared_ptr<ProductWrapper>>> registeredProducts;
-    ProductManager() : p(nullptr), registeredProducts(map<string, vector<shared_ptr<ProductWrapper>>>()) {}
+    ProductManager() {};
     ProductManager(const ProductManager &s) = delete;
     ProductManager &operator=(const ProductManager &s) = delete;
 
@@ -21,9 +20,10 @@ public:
     }
     
     shared_ptr<ProductWrapper> searchProduct(string productName);
+    shared_ptr<ProductWrapper> searchProduct(string productName, string category);
     void addProduct(shared_ptr<ProductWrapper> p);
-    map<string, vector<shared_ptr<ProductWrapper>>> getCatalouge() { return registeredProducts; }
-    void deleteProduct(string name, string cat);
-    void DisplayProduct(shared_ptr<ProductWrapper> p);
-
+    map<string, vector<shared_ptr<ProductWrapper>>>& getCatalouge() { return registeredProducts; }
+    void deleteProduct(string name);
+    bool categoryExists(string category);
+    bool createCategory(string category);
 };

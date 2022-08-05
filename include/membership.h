@@ -34,6 +34,12 @@ class PlatinumMembership: public Membership{
 		~PlatinumMembership(){};
 };
 
+class NoMembership: public Membership{
+	public:
+		NoMembership(): Membership(0, 0, "No"){};
+		~NoMembership(){};
+};
+
 // class StandardMembership: public Membership{
 // 	public:
 // 		StandardMembership(): Membership(0, 0.0, "Standard"){};

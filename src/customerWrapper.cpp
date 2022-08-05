@@ -1,11 +1,14 @@
 #include "customerWrapper.h"
 #include <iostream>
-map<unsigned int, string> CustomerWrapper::membership_cats = {
+#include "constants.h"
+
+// map<unsigned int, string> CustomerWrapper::membership_cats = 
+std::map<int, std::string> memberCategoryMap = {
 	{1, "Classic"},
 	{2, "Gold"},
-	{3, "Platinum"}
+	{3, "Platinum"},
+	{4, "No"}
 };
-
 CustomerWrapper::CustomerWrapper(
 	// const unsigned int ID,
 	const string name, const string address, const string phone,
@@ -13,11 +16,14 @@ CustomerWrapper::CustomerWrapper(
 		// serialID(ID), 
 		customerMembership(NULL),
 		customer(make_shared<Customer>(name, address, phone)) {
-		if(choice == membership_cats[1]) 
+		
+		if(choice == memberCategoryMap[1]) 
 			customerMembership = dynamic_pointer_cast<Membership>(make_shared<ClassicMembership>());
-		else if(choice == membership_cats[2]) 
+		else if(choice == memberCategoryMap[2]) 
 			customerMembership = dynamic_pointer_cast<Membership>(make_shared<GoldMembership>());
-		else if(choice == membership_cats[3]) 
+		else if(choice == memberCategoryMap[3]) 
 			customerMembership = dynamic_pointer_cast<Membership>(make_shared<PlatinumMembership>());
-		else cout<<"Please choose an item from the list\n";
+		else if(choice == memberCategoryMap[4])
+			customerMembership = dynamic_pointer_cast<Membership>(make_shared<NoMembership>());
+		else throw choice;
 }

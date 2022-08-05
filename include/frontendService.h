@@ -3,7 +3,7 @@
 #include "constants.h"
 #include <memory>
 #include "backendService.h"
-
+using namespace std;
 class FrontendService
 {
 protected:
@@ -13,7 +13,7 @@ protected:
 public:
 	FrontendService(User user): user(user){};
 	void searchProduct();
-	void displayProducts(){/*TODO*/};
+	void displayProducts();
 	virtual void start() = 0;
 	
 };

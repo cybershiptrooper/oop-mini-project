@@ -3,6 +3,7 @@
 #include "customerManager.h"
 #include "membership.h"
 #include <assert.h>
+#include "constants.h"
 
 bool testCustomerClass(){
 	cout << "Testing Customer Class\n";
@@ -25,7 +26,7 @@ bool testCustomerClass(){
 }
 
 bool testMembershipClass(){
-	cout << "Testing Membership Class\n";
+	cout << "  Testing Membership Class\n";
 	Membership classic = ClassicMembership();
 	Membership gold = GoldMembership();
 	Membership plat = PlatinumMembership();
@@ -35,22 +36,28 @@ bool testMembershipClass(){
 	assert(gold.getDiscount() == 0.1);
 	assert(plat.getFees() == 10000);
 	assert(plat.getDiscount() == 0.15);
-	cout << "Test completed\n";
+	cout << "  Test completed\n";
 	return true;
 }
 
 bool testWrapperClass(){
+	cout << "  Testing Wrapper Class\n";
 	string addr = "xyz";
 	string name = "abc";
 	char phone[11] = "1234567890";
 	char phone2[11] = "0987654321";
-	auto cats = CustomerWrapper::getMembershipCats();
+	// auto cats = CustomerWrapper::getMembershipCats();
 	// CustomerWrapper wrapper(2, name, addr, phone, cats[2]);
-	CustomerWrapper wrapper(name, addr, phone, cats[2]);
+	CustomerWrapper wrapper(name, addr, phone, ToString(Gold));
 	// TODO
+	cout << "  Test completed\n";
 	return true;
 }
-
+bool testParserClass(){
+	cout << "  Testing Parser Class\n";
+	CustomerParser::getInstance().readFile();
+	cout << "  Test completed\n";
+};
 bool testManagerClass(){
 	CustomerManager::getInstance();
 	// TODO
@@ -62,5 +69,6 @@ bool testCustomerPipeline(){
 	testMembershipClass();
 	testWrapperClass();
 	testManagerClass();
+	testParserClass();
 	return true;
 }

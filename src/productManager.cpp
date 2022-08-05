@@ -5,55 +5,57 @@ using namespace std;
 
 shared_ptr<ProductWrapper> ProductManager::searchProduct(string prodName)
 {
+    shared_ptr<ProductWrapper> ans;
     for (auto i : registeredProducts)
     {
-        for (auto j : i.second)
-        {
+        try{
+            return searchProduct(prodName, i.first);
+        }
+        catch(const std::invalid_argument& e){
+            continue;
+        }
+    }
+    throw std::invalid_argument( "received negative value" );
+}
+shared_ptr<ProductWrapper> ProductManager::searchProduct(string prodName, string cat){
+    
+    for (auto j : registeredProducts[cat]){
             if (j->getProduct()->getName() == prodName)
             {
                 return j;
             }
-        }
     }
-    return NULL;
+    throw std::invalid_argument( "received negative value" );
 }
-
 void ProductManager::addProduct(shared_ptr<ProductWrapper> p)
 {
-
     registeredProducts[p->getCategory()].push_back(p);
     return;
 }
 
-void ProductManager::DisplayProduct(shared_ptr<ProductWrapper> p)
+void ProductManager::deleteProduct(string name)
 {
-    cout << "Name: " << p->getProduct()->getName() << endl;
-    cout << "Cost: " << p->getProduct()->getCost() << endl;
-    cout << "Category: " << p->getCategory() << endl;
-    cout << "Stock: " << p->getStock() << endl;
-
-    return;
-}
-
-void ProductManager::deleteProduct(string name, string cat = "")
-{
-    if (cat != "")
+    
+    for (auto category : registeredProducts)
     {
-        for (auto it = (registeredProducts[cat]).begin(); it != (registeredProducts[cat]).end(); it++)
+        for (auto it = (registeredProducts[category.first]).begin(); it != (registeredProducts[category.first]).end(); it++)
         {
             if ((*it)->getProduct()->getName() == name)
-                (registeredProducts[cat]).erase(it);
+                (registeredProducts[category.first]).erase(it);
         }
     }
-    else
-    {
-        for (auto category : registeredProducts)
-        {
-            for (auto it = (registeredProducts[category.first]).begin(); it != (registeredProducts[category.first]).end(); it++)
-            {
-                if ((*it)->getProduct()->getName() == name)
-                    (registeredProducts[category.first]).erase(it);
-            }
-        }
+    
+}
+
+bool ProductManager::createCategory(string category){
+    if(categoryExists(category))return false;
+    registeredProducts[category] = {};
+    return true;
+}
+
+bool ProductManager::categoryExists(string category){
+    for(auto item : registeredProducts){
+        if(item.first == category) return true;
     }
+    return false;
 }

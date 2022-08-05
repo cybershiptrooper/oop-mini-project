@@ -1,5 +1,6 @@
 #include "customerServiceDisplayManager.h"
 #include "frontendService.h"
+#include "cart.h"
 
 class CustomerService: public FrontendService
 {

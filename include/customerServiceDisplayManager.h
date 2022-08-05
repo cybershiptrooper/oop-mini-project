@@ -7,5 +7,6 @@ private:
 public:
 	int displayStartMenu();
 	bool getExitConfirmation(){return true;};
+	bool displayManageProductMenu(shared_ptr<ProductWrapper> product);
 };
 

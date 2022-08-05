@@ -59,8 +59,10 @@ void IOWriter::writeFromBeginning(list<string> data){
 	fstream file;
 	// file.close();
 	file.open(filename, ios::out | ios::trunc);
-	for(string i : data){
-		file<<i<<endl;
+	for(auto i = data.begin(); i!=data.end(); i++){
+		file<<*i;
+		if(i != --data.end()) file<<endl;
+
 	}
 	file.close();
 	

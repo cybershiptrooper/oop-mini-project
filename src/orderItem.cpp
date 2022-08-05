@@ -22,8 +22,8 @@ int OrderItem::getQuantity(){
 char* OrderItem::getTimeStamp(){
     return this->tm;
 }
-int OrderItem::getTotal(){
-    return this->total;
+double OrderItem::getTotal(){
+    return product->getCost()*qty;
 }
 
 //setter methods
