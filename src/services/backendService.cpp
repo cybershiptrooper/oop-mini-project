@@ -15,7 +15,7 @@ shared_ptr<ProductWrapper> BackendService::addProduct(
 	auto product = make_shared<ProductWrapper>(name, cost, category, stock);
 	PM.addProduct(product);
 	//write to File
-	ProductParser::getInstance().writeFile();
+	syncProducts();
 	return product;
 }
 

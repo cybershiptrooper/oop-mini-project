@@ -24,7 +24,7 @@ public:
     shared_ptr<ProductWrapper> searchProduct(string productName, string category);
     void addProduct(shared_ptr<ProductWrapper> p);
     map<string, list<shared_ptr<ProductWrapper>>>& getCatalouge() { return registeredProducts; }
-    void deleteProduct(string name);
+    void deleteProduct(string name, string category);
     bool categoryExists(string category);
     bool createCategory(string category);
 };

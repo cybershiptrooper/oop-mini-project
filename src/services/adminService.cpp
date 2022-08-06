@@ -6,7 +6,12 @@ void AdminService::start(){
 			switch (choice)
 			{
 			case 1:
-				searchProduct();break;
+				try{
+					auto product = searchProduct();
+					manageProduct(product);
+				}
+				catch(...){}
+				break;
 			case 2:
 				displayProducts();break;
 			case 3:
@@ -16,6 +21,8 @@ void AdminService::start(){
 			default:
 				return;
 			}
+			getDM()->BR();
+			BackendService::getInstance().syncFiles();
 		}
 }
 
@@ -35,44 +42,49 @@ void AdminService::addNewProduct(){
 	string product = getDM()->getName("product");
 	try {
 		auto ans = BackendService::getInstance().searchProduct(product, category);
-		cout<<"Product already exists\n";
-		getDM()->displayProduct(ans);
-		bool confirmation = getDM()->displayManageProductMenu(ans);
-		if(!confirmation) return;
-		//manage product
+		getDM()->dispAlreadyExists(ans);
+		manageProduct(ans);
 	}
 	catch(const std::invalid_argument& e){
-
-	}
-	int inventory;
-	
-	while(true){
-		try{
-			std::string a = "quantity of product";
-			std::string b = "Please enter the ";
-			inventory = stoi(getDM()->getName(a,b));
-			if(inventory < 0) throw std::invalid_argument("incorrect qty");
-			break;
-		}
-		catch(...){
-			"Please enter a non-negative quantity";
-		}
-	}
-	double cost;
-	while(true){
-		try{
-			std::string a = "cost of product";
-			std::string b = "Please enter the ";
-			cost = stoi(getDM()->getName(a,b));
-			if(cost < 0) throw std::invalid_argument("incorrect cost");
-			break;
-		}
-		catch(...){
-			"Please enter a non-negative quantity";
-		}
+		cout<<"A new product will be created.\n";
 	}
 
+	int inventory = getDM()->getNumber("quantity of product");
+	double cost = getDM()->getFloatingNumber("cost of the product");
 	auto pw = BackendService::getInstance().addProduct(product, cost, category, inventory);
 	getDM()->createConfirm("product");
 	getDM()->displayProduct(pw);
+}
+
+void AdminService::manageProduct(shared_ptr<ProductWrapper> product){
+		while(true){
+			int choice = getDM()->displayManageProductMenu(product);
+			switch (choice)
+			{
+			case 1:
+				viewInventoryStats(product);
+				break;
+			case 2:
+				{int additionalStock = getDM()->getNumber("quantity you want to add to stock");
+				product->addToStock(additionalStock);
+				break;}
+			case 3:
+				BackendService::getInstance().deleteProduct(product);
+				getDM()->deleteConfirm("Product");
+				return;
+				break;
+			default:
+				return;
+			}
+			getDM()->BR();
+			BackendService::getInstance().syncFiles();
+		}
+}
+
+void AdminService::viewInventoryStats(shared_ptr<ProductWrapper> product){
+	//get all past orders including this product 
+
+	//get daily total 
+
+	//other stats 
 }

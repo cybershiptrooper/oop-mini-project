@@ -37,18 +37,15 @@ void ProductManager::addProduct(shared_ptr<ProductWrapper> p)
     //cerr<<"Manager"<<&(*(prod))<<endl;
 }
 
-void ProductManager::deleteProduct(string name)
-{
-    
-    for (auto category : registeredProducts)
+void ProductManager::deleteProduct(string name, string category)
+{   
+    for (auto it = (registeredProducts[category]).begin(); it != (registeredProducts[category]).end(); it++)
     {
-        for (auto it = (registeredProducts[category.first]).begin(); it != (registeredProducts[category.first]).end(); it++)
-        {
-            if ((*it)->getProduct()->getName() == name)
-                (registeredProducts[category.first]).erase(it);
+        if ((*it)->getProduct()->getName() == name){
+            (registeredProducts[category]).erase(it);
+            break;
         }
     }
-    
 }
 
 bool ProductManager::createCategory(string category){

@@ -21,6 +21,7 @@ void CustomerService::start(){
 				if(getDM()->getExitConfirmation())return;
 				break;
 			}
+			BackendService::getInstance().syncFiles();
 		}
 }
 

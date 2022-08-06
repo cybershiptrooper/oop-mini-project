@@ -6,7 +6,6 @@
 #include "customerManager.h"
 #include "productParser.h"
 #include "orderItemParser.h"
-// #include "orderItemManager.h"
 #include <iostream>
 class BackendService {
 private:
@@ -65,4 +64,13 @@ public:
     bool checkCanBuy(shared_ptr<ProductWrapper> product, int qty){
         return (product->getStock() >= qty);
     };
+
+    void deleteProduct(shared_ptr<ProductWrapper> product){
+        PM.deleteProduct(product->getProduct()->getName(), product->getCategory());
+    }
+
+    void syncProducts(){ProductParser::getInstance().writeFile();}
+    void syncOrders(){OrderItemParser::getInstance().writeFile();}
+    void syncCustomers(){CustomerParser::getInstance().writeFile();}
+    void syncFiles(){syncProducts(); syncOrders(); syncCustomers();}
 };

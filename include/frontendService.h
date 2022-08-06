@@ -12,7 +12,7 @@ protected:
 	virtual DisplayManager* getDM(){return &(*DM);};
 public:
 	FrontendService(User user): user(user){};
-	void searchProduct();
+	shared_ptr<ProductWrapper> searchProduct();
 	void displayProducts();
 	virtual void start() = 0;
 	

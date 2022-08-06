@@ -13,5 +13,7 @@ public:
 	};
 	void start();
 	void addNewProduct();
+	void viewInventoryStats(shared_ptr<ProductWrapper> product);
+	void manageProduct(shared_ptr<ProductWrapper> product);
 };
 

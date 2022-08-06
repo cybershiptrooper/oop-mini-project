@@ -28,7 +28,7 @@ bool DisplayManager::getBoolChoice(){
 	return choice;
 }
 
-int DisplayManager::displayProductCategoryMenu(User user, bool create, bool all){
+int DisplayManager::displayProductCategoryMenu(User user, bool create){
 	if(create){
 		if(user != Admin){ 
 			cout<<"You do not have the permission to dit product categories.";
@@ -50,8 +50,8 @@ int DisplayManager::displayProductCategoryMenu(User user, bool create, bool all)
 			max_choices++;
 			cout<<max_choices<<". Create a new category of product"<<"\n";
 		}
-		else if(all){
-			max_choices++; cout<<max_choices<<". Any category"<<"\n";
+		else{
+			max_choices++; cout<<max_choices<<". All categories"<<"\n";
 		}
 		
 		choice = getChoice(max_choices);
@@ -62,12 +62,44 @@ int DisplayManager::displayProductCategoryMenu(User user, bool create, bool all)
 }
 
 string DisplayManager::getName(string dataItem, string prefix){
-	cout<<linebreak<<prefix<<dataItem<<":\n";
+	cout<<prefix<<dataItem<<":\n";
 	string str;
 	// clearCIN();
 	// getline(cin, str);
 	cin>>str;
 	return str;
+}
+
+int DisplayManager::getNumber(string dataItem){
+	int ans;
+	while(true){
+		try{
+			std::string query = "Please enter the ";
+			ans = stoi(getName(dataItem, query));
+			if(ans < 0) throw std::invalid_argument("incorrect qty");
+			break;
+		}
+		catch(...){
+			cout<<"Please enter a non-negative integer\n";
+		}
+	}
+	return ans;
+}
+
+double DisplayManager::getFloatingNumber(string dataItem){
+	double ans;
+	while(true){
+		try{
+			std::string query = "Please enter the ";
+			ans = stod(getName(dataItem, query));
+			if(ans < 0) throw std::invalid_argument("incorrect qty");
+			break;
+		}
+		catch(...){
+			cout<<"Please enter a non-negative numeric quantity\n";
+		}
+	}
+	return ans;
 }
 
 void DisplayManager::displayProduct(shared_ptr<ProductWrapper> p)
@@ -101,7 +133,7 @@ void DisplayManager::displayProducts(){
 
 void DisplayManager::displayProducts(string category){
 	int i = 1;
-	cerr<<(BackendService::getInstance().getAllProds()[category]).size()<<endl;
+	// cerr<<(BackendService::getInstance().getAllProds()[category]).size()<<endl;
 	auto li = BackendService::getInstance().getAllProds()[category];
 	for(auto it = li.begin(); it != li.end(); it++ ){
 		cout<<i++<<". ";

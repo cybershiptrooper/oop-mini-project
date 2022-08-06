@@ -6,5 +6,5 @@ private:
 public:
 	int displayStartMenu();
 	void displayAllOrderItems();
-	// bool displayManageProductMenu();
+	int displayManageProductMenu(shared_ptr<ProductWrapper> product);
 };

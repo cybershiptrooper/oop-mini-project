@@ -1,7 +1,7 @@
 #include "frontendService.h"
 #include <string>
 
-void FrontendService::searchProduct(){
+shared_ptr<ProductWrapper> FrontendService::searchProduct(){
 	int choice = getDM()->displayProductCategoryMenu(user);
 	shared_ptr<ProductWrapper> product;
 	
@@ -13,11 +13,13 @@ void FrontendService::searchProduct(){
 			product = BackendService::getInstance().searchProduct(pname, choice);
 	}
 	catch(...){
-		getDM()->productNotFound();return;
+		getDM()->productNotFound();
+		throw;
 	}	
 	// if(product == nullptr){ }
-	bool choice2 = getDM()->displayManageProductMenu(product);
-
+	// bool choice2 = getDM()->displayManageProductMenu(product);
+	getDM()->productFound(product);
+	return product;
 }
 
 void FrontendService::displayProducts(){
@@ -25,6 +27,7 @@ void FrontendService::displayProducts(){
 	// shared_ptr<ProductWrapper> product;
 	// if(choice < 0) return;
 	int max_choices = BackendService::getInstance().getProductSize();
+	getDM()->BR();
 	if(choice > max_choices){
 		getDM()->displayProducts();
 		return;
