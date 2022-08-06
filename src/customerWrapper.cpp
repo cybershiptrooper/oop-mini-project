@@ -12,18 +12,21 @@ std::map<int, std::string> memberCategoryMap = {
 CustomerWrapper::CustomerWrapper(
 	// const unsigned int ID,
 	const string name, const string address, const string phone,
-	const string choice): 
-		// serialID(ID), 
+	const string choice):  
 		customerMembership(NULL),
 		customer(make_shared<Customer>(name, address, phone)) {
-		
-		if(choice == memberCategoryMap[1]) 
-			customerMembership = dynamic_pointer_cast<Membership>(make_shared<ClassicMembership>());
-		else if(choice == memberCategoryMap[2]) 
-			customerMembership = dynamic_pointer_cast<Membership>(make_shared<GoldMembership>());
-		else if(choice == memberCategoryMap[3]) 
-			customerMembership = dynamic_pointer_cast<Membership>(make_shared<PlatinumMembership>());
-		else if(choice == memberCategoryMap[4])
-			customerMembership = dynamic_pointer_cast<Membership>(make_shared<NoMembership>());
-		else throw choice;
+			setMembership(choice);	
+}
+
+void CustomerWrapper::setMembership(const string choice){
+	customerMembership.reset();
+	if(choice == memberCategoryMap[1]) 
+		customerMembership = dynamic_pointer_cast<Membership>(make_shared<ClassicMembership>());
+	else if(choice == memberCategoryMap[2]) 
+		customerMembership = dynamic_pointer_cast<Membership>(make_shared<GoldMembership>());
+	else if(choice == memberCategoryMap[3]) 
+		customerMembership = dynamic_pointer_cast<Membership>(make_shared<PlatinumMembership>());
+	else
+		customerMembership = dynamic_pointer_cast<Membership>(make_shared<NoMembership>());
+	// else throw choice;
 }

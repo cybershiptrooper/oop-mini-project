@@ -5,4 +5,6 @@ class AdminServiceDisplayManager: public DisplayManager
 private:
 public:
 	int displayStartMenu();
+	void displayAllOrderItems();
+	// bool displayManageProductMenu();
 };

@@ -2,27 +2,30 @@
 #include <memory>
 #include "customerWrapper.h"
 #include "productWrapper.h"
+#include "backendService.h"
+#include "constants.h"
+
 class Cart
 {
 private:
-	weak_ptr<CustomerWrapper> customer;
-	map<weak_ptr<ProductWrapper>, unsigned int> cartItems;
+	shared_ptr<CustomerWrapper> customer;
+	map<shared_ptr<ProductWrapper>, unsigned int> cartItems;
 	double non_discountable;
 public:
 	
-	bool addCustomer(weak_ptr<CustomerWrapper> c){
-		if(customer.lock()){return false;}
-		customer = c;
-		return true;
+	void addCustomer(shared_ptr<CustomerWrapper> c){
+		if(customerExists()) throw std::invalid_argument("Customer exists");
+		else customer = c;
 	};
 	void removeCustomer(){customer.reset();};
 	bool checkOutValid(){
-		if(!customer.lock()) return true;
+		if(customer != nullptr) return true;
 		return false;
 	};
-	bool addMembershipToBill();
-	bool getTotal(){/*TODO*/};
-	bool addProduct(weak_ptr<Product>, int qty){/*TODO*/};
+	bool customerExists(){return checkOutValid();};
+	void addMembershipToBill(MembershipCategory membership);
+	double getTotal();
+	void addProduct(shared_ptr<ProductWrapper> product, int qty);
 
 	~Cart();
 };

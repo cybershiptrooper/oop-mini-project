@@ -1,4 +1,5 @@
 #include "customerParser.h"
+#include <iostream>
 string CustomerParser::parseToStr(shared_ptr<CustomerWrapper> data){
 	string ans = "";
 	ans += (data->getCustomer()->getName());
@@ -37,11 +38,13 @@ void CustomerParser::readFile(){
 	list<string> data = file_manager.readFromBeginning();
 	assert(getColumnAsStr() == data.front());
 	data.pop_front();
-	data.pop_back();
-	int i = 1;
-	for(auto item : data){
-		// auto customer = parseFromStr(item, i++);
-		auto customer = parseFromStr(item);
+	if(data.empty())return;
+	string utr = data.front();
+	while(not data.empty()){
+		string str = data.front();
+		// assert(str == utr);
+		data.pop_front();
+		auto customer = parseFromStr(str);
 		CustomerManager::getInstance().addCustomer(customer);
 	}
 }

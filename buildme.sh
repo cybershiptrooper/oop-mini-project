@@ -8,4 +8,4 @@ test -e data/product.data && echo "present" || echo "Name; Cost; Category; Stock
 echo "all files checked"
 mkdir -p build
 cd build && cmake ..
-make
+make -j4

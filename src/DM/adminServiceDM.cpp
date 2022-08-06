@@ -14,3 +14,11 @@ int AdminServiceDisplayManager::displayStartMenu(){
 		if(choice == -1) return displayStartMenu();
 		return choice;
 }
+
+// void AdminServiceDisplayManager::displayAllOrderItems(){
+// 	auto orders = BackendService::getInstance().getAllOrders();
+// 	// cout<<"whatthaafaaack";
+// 	// for(auto item : orders){
+// 	// 	displayOrderItem(item);
+// 	// }
+// }

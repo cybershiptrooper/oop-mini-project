@@ -4,7 +4,7 @@
 void FrontendService::searchProduct(){
 	int choice = getDM()->displayProductCategoryMenu(user);
 	shared_ptr<ProductWrapper> product;
-	if(choice < 0) return;
+	
 	string pname = getDM()->getName("product");
 	try{	
 		if(choice > BackendService::getInstance().getProductSize())
@@ -22,11 +22,14 @@ void FrontendService::searchProduct(){
 
 void FrontendService::displayProducts(){
 	int choice = getDM()->displayProductCategoryMenu(user);
-	shared_ptr<ProductWrapper> product;
-	if(choice < 0) return;
-	if(choice > BackendService::getInstance().getProductSize()){
+	// shared_ptr<ProductWrapper> product;
+	// if(choice < 0) return;
+	int max_choices = BackendService::getInstance().getProductSize();
+	if(choice > max_choices){
 		getDM()->displayProducts();
 		return;
 	}
-	getDM()->displayProducts(BackendService::getInstance().getCategory(choice));
+	string category = BackendService::getInstance().getCategory(choice);
+	// cout<<category<<endl;
+	getDM()->displayProducts(category);
 }

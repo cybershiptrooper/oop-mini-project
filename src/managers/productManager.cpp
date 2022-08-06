@@ -1,6 +1,6 @@
 #include <iostream>
 #include "productManager.h"
-
+#include <assert.h>
 using namespace std;
 
 shared_ptr<ProductWrapper> ProductManager::searchProduct(string prodName)
@@ -15,8 +15,9 @@ shared_ptr<ProductWrapper> ProductManager::searchProduct(string prodName)
             continue;
         }
     }
-    throw std::invalid_argument( "received negative value" );
+    throw std::invalid_argument( "No such product Exists" );
 }
+
 shared_ptr<ProductWrapper> ProductManager::searchProduct(string prodName, string cat){
     
     for (auto j : registeredProducts[cat]){
@@ -25,12 +26,15 @@ shared_ptr<ProductWrapper> ProductManager::searchProduct(string prodName, string
                 return j;
             }
     }
-    throw std::invalid_argument( "received negative value" );
+    throw std::invalid_argument( "No such product exists" );
 }
+
 void ProductManager::addProduct(shared_ptr<ProductWrapper> p)
 {
     registeredProducts[p->getCategory()].push_back(p);
-    return;
+    auto prod = (registeredProducts[p->getCategory()]).back();
+    assert(prod->getProduct() != nullptr);
+    //cerr<<"Manager"<<&(*(prod))<<endl;
 }
 
 void ProductManager::deleteProduct(string name)

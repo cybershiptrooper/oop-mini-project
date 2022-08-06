@@ -1,6 +1,5 @@
 #pragma once
 #include "productManager.h"
-#include <vector>
 #include <map>
 #include <memory>
 #include "customerParser.h"
@@ -8,13 +7,17 @@
 #include "productParser.h"
 #include "orderItemParser.h"
 // #include "orderItemManager.h"
-
+#include <iostream>
 class BackendService {
 private:
 	
 	BackendService(){
-		CustomerParser::getInstance().readFile();
+        //cerr<<"constructer Backend\n";
+        //cerr<<"Product Parser\n";
         ProductParser::getInstance().readFile();
+        //cerr<<"Customer Parser\n";
+		CustomerParser::getInstance().readFile();
+        //cerr<<"Order Parser\n";
         OrderItemParser::getInstance().readFile();
     };
 	BackendService(const BackendService& bs) = delete;
@@ -29,21 +32,28 @@ public:
 	}
     
     shared_ptr<ProductWrapper> searchProduct(string name){return PM.searchProduct(name);}
+    shared_ptr<ProductWrapper> searchProduct(string name, string category){
+        return PM.searchProduct(name, category);
+    }
     shared_ptr<ProductWrapper> searchProduct(string name, int choice){
         string category = getCategory(choice); 
         return PM.searchProduct(name, category);
     }
     
-    map<string, vector<shared_ptr<ProductWrapper>>> getAllProds(){return PM.getCatalouge();}
-    
-    auto& getProductsOfCategory(string category){return PM.getCatalouge()[category];}
+    map<string, list<shared_ptr<ProductWrapper>>> getAllProds(){
+        return ProductManager::getInstance().getCatalouge();
+    }
+    auto getAllOrders(){return OM.getListOfOrderedItems();}
+    auto& getProductsOfCategory(string category){
+        return ProductManager::getInstance().getCatalouge()[category];
+    }
     auto& getProductsOfCategory(int choice){
         string category = getCategory(choice); 
         return PM.getCatalouge()[category]; 
     }
 
     string getCategory(int choice);
-    void addProduct(string name, double cost, string category, int stock);
+    shared_ptr<ProductWrapper> addProduct(string name, double cost, string category, int stock);
     bool createCategory(string category){return PM.createCategory(category);}
     unsigned int getProductSize(){return PM.getCatalouge().size();}
 

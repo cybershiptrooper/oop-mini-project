@@ -1,27 +1,33 @@
 #include "productParser.h"
-
+#include <string>
+#include <iostream>
 string ProductParser::parseToStr(shared_ptr<ProductWrapper> data){
 	string ans = "";
 	ans += (data->getProduct()->getName());
 	ans += ";";
-	ans += (data->getProduct()->getCost());
+	ans += to_string(data->getProduct()->getCost());
 	ans += ";";
 	ans += (data->getCategory());
 	ans += ";";
-	ans += data->getStock();
-	ans += ";\n";
+	ans += to_string(data->getStock());
+	ans += ";";
 	return ans;
 }
 
 shared_ptr<ProductWrapper> ProductParser::parseFromStr(string str){
-	stringstream ss(str);
-	string name, cost, category, stock;
+	istringstream ss(str);
+	string name, coststr, category, stock;
 	getline(ss, name, ';'); //Exception!!
-	getline(ss, cost, ';'); 
+	getline(ss, coststr, ';'); 
 	getline(ss, category, ';');
 	getline(ss, stock, ';'); 
-	return make_shared<ProductWrapper>(name, stoi(cost), category, stoi(stock));
+	
+	int stocknumeric = stoi(stock);
+	double costnumeric = stod(coststr);
+	auto ans = make_shared<ProductWrapper>(name, costnumeric, category, stocknumeric);
+	return ans;
 }
+
 string ProductParser::getColumnAsStr(){
 	string header;
 	for(int i = 0; i < columns.size(); i++){
@@ -31,15 +37,20 @@ string ProductParser::getColumnAsStr(){
 	}
 	return header;
 }
+
 void ProductParser::readFile(){
 	list<string> data = file_manager.readFromBeginning();
-	
 	assert(getColumnAsStr() == data.front());
 	data.pop_front();
-	int i = 1;
-	for(auto item : data){
-		auto Product = parseFromStr(item);
-		ProductManager::getInstance().addProduct(Product);
+	if(data.empty())return;
+	string utr = data.front();
+	while(not data.empty()){
+		string str = data.front();
+		// assert(str == utr);
+		data.pop_front();
+		auto product = parseFromStr(str);
+		//cerr<<"original"<<&(*product)<<endl;
+		ProductManager::getInstance().addProduct(product);
 	}
 }
 

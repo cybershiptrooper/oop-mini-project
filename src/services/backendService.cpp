@@ -9,9 +9,14 @@ string BackendService::getCategory(int choice){
 	return (*it).first;
 }
 
-void BackendService::addProduct(string name, double cost, string category, int stock){
+shared_ptr<ProductWrapper> BackendService::addProduct(
+	string name, double cost, string category, int stock){
+	//store in RAM
 	auto product = make_shared<ProductWrapper>(name, cost, category, stock);
 	PM.addProduct(product);
+	//write to File
+	ProductParser::getInstance().writeFile();
+	return product;
 }
 
 shared_ptr<OrderItem> BackendService::createOrderItem(
@@ -30,4 +35,5 @@ shared_ptr<OrderItem> BackendService::createOrderItem(
 			qty, tm);
 		//write to File
 		OrderItemParser::getInstance().writeFile();
+		return order;
 }

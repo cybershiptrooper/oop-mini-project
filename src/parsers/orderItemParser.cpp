@@ -4,33 +4,25 @@
 #include "customer.h"
 #include "productManager.h"
 #include "iowriter.h"
-
+// #include <iostream>
 string OrderItemParser::parseToStr(shared_ptr<OrderItem> data){
 	string ans = "";
-    ans += std::to_string(data->getID());
-    ans += ";";
-	ans += data->getCustomer()->getName();
-	ans += ";";
-	ans += data->getCustomer()->getAddress();
+    ans += to_string(data->getID());
 	ans += ";";
 	ans += data->getCustomer()->getPhone();
 	ans += ";";
     ans += data->getProduct()->getName();
     ans += ";";
-    ans += data->getProduct()->getCost();
+    ans += to_string(data->getQuantity());
     ans += ";";
-    ans += data->getQuantity();
-    ans += ";";
-    ans += data->getTimeStamp();
-    ans += ";";
-    ans += data->getTotal();
+    ans += string(data->getTimeStamp());
 	ans += ";\n";
 	return ans;
 }
 
 shared_ptr<OrderItem> OrderItemParser::parseFromStr(string str){
 	stringstream ss(str);
-	string custPhone, prodName, quantity, total, time;
+	string custPhone, prodName, quantity, time;
 	getline(ss, custPhone, ';');
     shared_ptr<CustomerWrapper> custWrap = CustomerManager::getInstance().searchCustomer(custPhone);
     shared_ptr<Customer> customer = custWrap->getCustomer();
@@ -39,7 +31,7 @@ shared_ptr<OrderItem> OrderItemParser::parseFromStr(string str){
     shared_ptr<Product> product = prodWrap->getProduct();
 	getline(ss, quantity, ';');
 	int qty = stoi(quantity);
-	int total1 = stoi(total);
+	// int total1 = stoi(total);
     getline(ss, time, ';');
 	// getline(ss, total, ';'); 
 	char* tm = const_cast<char*>(time.c_str());
@@ -59,11 +51,26 @@ string OrderItemParser::getColumnAsStr(){
 }
 
 void OrderItemParser::readFile(){
+	// list<string> data = file_manager.readFromBeginning();
+	// // assert(getColumnAsStr() == data.front());
+	// data.pop_front();
+	// // data.pop_back();
+	// // cout<<data.back();
+	// if(data.empty())return;
+	// for(auto item : data){
+	// 	auto orderItem = parseFromStr(item);
+	// 	OrderItemManager::getInstance().addOrderItem(orderItem);
+	// }
 	list<string> data = file_manager.readFromBeginning();
 	assert(getColumnAsStr() == data.front());
 	data.pop_front();
-	for(auto item : data){
-		auto orderItem = parseFromStr(item);
+	if(data.empty())return;
+	string utr = data.front();
+	while(not data.empty()){
+		string str = data.front();
+		// assert(str == utr);
+		data.pop_front();
+		auto orderItem = parseFromStr(str);
 		OrderItemManager::getInstance().addOrderItem(orderItem);
 	}
 }

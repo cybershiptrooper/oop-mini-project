@@ -8,7 +8,7 @@ enum User{
 	Representative
 };
 
-DEFINE_ENUM_WITH_STRING_CONVERSIONS(MembershipCategories, (Classic)(Gold)(Platinum)(No)) //For tests
+DEFINE_ENUM_WITH_STRING_CONVERSIONS(MembershipCategory, (Classic)(Gold)(Platinum)(No)) //For tests
 // enum MembershipCategories{
 // 	Classic=1,
 // 	Gold=2,

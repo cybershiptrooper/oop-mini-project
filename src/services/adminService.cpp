@@ -11,6 +11,8 @@ void AdminService::start(){
 				displayProducts();break;
 			case 3:
 				addNewProduct();break;
+			// case 4:
+				// getDM()->displayAllOrderItems();
 			default:
 				return;
 			}
@@ -31,6 +33,17 @@ void AdminService::addNewProduct(){
 	}
 	
 	string product = getDM()->getName("product");
+	try {
+		auto ans = BackendService::getInstance().searchProduct(product, category);
+		cout<<"Product already exists\n";
+		getDM()->displayProduct(ans);
+		bool confirmation = getDM()->displayManageProductMenu(ans);
+		if(!confirmation) return;
+		//manage product
+	}
+	catch(const std::invalid_argument& e){
+
+	}
 	int inventory;
 	
 	while(true){
@@ -38,7 +51,7 @@ void AdminService::addNewProduct(){
 			std::string a = "quantity of product";
 			std::string b = "Please enter the ";
 			inventory = stoi(getDM()->getName(a,b));
-			if(inventory < 0) throw "incorrect qty";
+			if(inventory < 0) throw std::invalid_argument("incorrect qty");
 			break;
 		}
 		catch(...){
@@ -51,7 +64,7 @@ void AdminService::addNewProduct(){
 			std::string a = "cost of product";
 			std::string b = "Please enter the ";
 			cost = stoi(getDM()->getName(a,b));
-			if(cost < 0) throw "incorrect cost";
+			if(cost < 0) throw std::invalid_argument("incorrect cost");
 			break;
 		}
 		catch(...){
@@ -59,6 +72,7 @@ void AdminService::addNewProduct(){
 		}
 	}
 
-	BackendService::getInstance().addProduct(product, cost, category, inventory);
+	auto pw = BackendService::getInstance().addProduct(product, cost, category, inventory);
 	getDM()->createConfirm("product");
+	getDM()->displayProduct(pw);
 }

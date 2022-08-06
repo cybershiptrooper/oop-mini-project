@@ -5,6 +5,7 @@ shared_ptr<CustomerWrapper> CustomerManager::searchCustomer(const string phone){
 		string ph= (c->getCustomer())->getPhone();
 		if(phone == ph){return c;};
 	}
+	return nullptr;
 }
 
 void CustomerManager::addCustomer(shared_ptr<CustomerWrapper> customer){
