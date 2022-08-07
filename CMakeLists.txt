@@ -10,7 +10,6 @@ set(CMAKE_BUILD_TYPE Debug)
 add_executable(StoreManager 
 	src/iowriter.cpp 
 	src/customerWrapper.cpp
-	src/orderItem.cpp
 	
 	src/managers/customerManager.cpp
 	src/managers/productManager.cpp
@@ -36,7 +35,6 @@ add_executable(StoreManager
 add_executable(StoreManager_test  
 	src/iowriter.cpp 
 	src/customerWrapper.cpp
-	src/orderItem.cpp
 	
 	src/managers/customerManager.cpp
 	src/managers/productManager.cpp

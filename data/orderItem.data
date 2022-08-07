@@ -1,1 +1,2 @@
-custPhone; prodName; quantity; time;
+custPhone; pName; pCategory; quantity; time;
+1;9178678280;ded;2;1;9178678280;ded;2;;

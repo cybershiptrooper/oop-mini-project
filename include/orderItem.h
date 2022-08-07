@@ -1,33 +1,29 @@
 #pragma once
 #include <string>
-using namespace std;
 #include <memory>
 #include "customer.h"
-#include "product.h"
-
+#include "productWrapper.h"
+#include "time.h"
+using namespace std;
 class OrderItem{
 	private:
 		int id;
 		shared_ptr<Customer> customer;
-        shared_ptr<Product> product;
+        shared_ptr<ProductWrapper> product;
         int qty;
 		char* tm;
         int total;
 	public:
         OrderItem(int id,
 	        shared_ptr<Customer> customer,
-            shared_ptr<Product> product,
+            shared_ptr<ProductWrapper> product,
             int qty,
             char* tm): id(id), customer(customer), product(product), qty(qty){}
         //getter methods
-        int getID();
-        shared_ptr<Customer> getCustomer();
-        shared_ptr<Product>  getProduct();
-        int getQuantity();
-        char* getTimeStamp();
-        double getTotal();
-        //setter methods - mutables for orderItem are quantity and product, everything else will be set in the constructor and can't be edited
-        void setQuantity(int qty);
-        void setProduct(shared_ptr<Product> product);
+        int getID(){return id;};
+        shared_ptr<Customer> getCustomer(){return customer;};
+        shared_ptr<ProductWrapper>  getProduct(){return product;};
+        int getQuantity(){return qty;};
+        char* getTimeStamp(){return tm;};
+        double getTotal(){return (product->getProduct()->getCost())*qty;};
 };
-

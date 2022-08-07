@@ -23,6 +23,7 @@ shared_ptr<CustomerWrapper> BackendService::addCustomer(
 	string name, string address, string phone){
 	auto customer = make_shared<CustomerWrapper>(name, address, phone);
 	CM.addCustomer(customer);
+	syncCustomers();
 	return customer;
 }
 
@@ -32,6 +33,7 @@ void BackendService::updatePhone(shared_ptr<Customer> customer, string phone){
 		if(c1->getPhone() == phone) throw std::invalid_argument("Phone not unique");
 	}
 	customer->updatePhone(phone);
+	syncCustomers();
 }
 
 shared_ptr<OrderItem> BackendService::createOrderItem(
@@ -43,12 +45,24 @@ shared_ptr<OrderItem> BackendService::createOrderItem(
 		//remove from inventory
 		product->addToStock(-qty);
 		//store in RAM
-		int orderID = OM.createID(customer, product->getProduct());
+		int orderID = OM.createID(customer, product);
 		auto order = make_shared<OrderItem>(
 			orderID, 
-			customer, product->getProduct(),
+			customer, product,
 			qty, tm);
+		OM.addOrderItem(order);
 		//write to File
-		OrderItemParser::getInstance().writeFile();
+		syncOrders();
 		return order;
+}
+
+list<shared_ptr<OrderItem>> BackendService::getAllOrdersOfProd(
+	shared_ptr<ProductWrapper> product){
+	list<shared_ptr<OrderItem>> ans;
+	for(auto item : getAllOrders()){
+		if( *(item->getProduct()) == *product){
+			ans.push_back(item);
+		}
+	}
+	return ans;
 }

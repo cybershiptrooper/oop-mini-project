@@ -43,6 +43,7 @@ public:
         return ProductManager::getInstance().getCatalouge();
     }
     auto getAllOrders(){return OM.getListOfOrderedItems();}
+    list<shared_ptr<OrderItem>> getAllOrdersOfProd(shared_ptr<ProductWrapper> product);
     auto& getProductsOfCategory(string category){
         return ProductManager::getInstance().getCatalouge()[category];
     }

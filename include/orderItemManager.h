@@ -21,6 +21,8 @@ public:
     // static OrderItemManager& deleteInstance(){};
 	void addOrderItem(shared_ptr<OrderItem> item);
 	list<shared_ptr<OrderItem>> getListOfOrderedItems(){return orderedItems;};
-	int createID(shared_ptr<Customer> customer, shared_ptr<Product> product);
-	bool checkIfSameAsLastOrder(shared_ptr<Customer> customer, shared_ptr<Product> product);
+	int createID(shared_ptr<Customer> customer, shared_ptr<ProductWrapper> product);
+	bool checkIfSameAsLastOrder(
+		shared_ptr<Customer> customer, 
+		shared_ptr<ProductWrapper> product);
 };

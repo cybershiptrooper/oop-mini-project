@@ -163,7 +163,10 @@ void CustomerService::manageCart(){
 			customerInterface();
 			if(main_flag)return;
 			break;
-		case 5://checkout
+		case 5://remove purchased membership
+			cart->removeMembershipFromBill();
+			break;
+		case 6://checkout
 			try{
 				double total=cart->checkout();
 				getDM()->confirmCheckout(total, cart->getCartItems());
@@ -174,11 +177,11 @@ void CustomerService::manageCart(){
 				cout<<"Cart is not complete to checkout yet"<<endl;
 			}
 			break;
-		case 6://discard cart
+		case 7://discard cart
 			resetCart();
 			getDM()->deleteConfirm("Cart");
 			return;
-		case 7://remove membership purchase
+		case 8://remove membership purchase
 			cart->removeMembershipFromBill();
 		default://return
 			return;

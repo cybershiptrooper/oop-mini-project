@@ -16,3 +16,6 @@ DEFINE_ENUM_WITH_STRING_CONVERSIONS(MembershipCategory, (No)(Classic)(Gold)(Plat
 // };
 
 extern std::map<int, std::string> memberCategoryMap;
+
+#define DAY 86400;
+#define WEEK 7*DAY;

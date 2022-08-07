@@ -11,7 +11,7 @@ string OrderItemParser::parseToStr(shared_ptr<OrderItem> data){
 	ans += ";";
 	ans += data->getCustomer()->getPhone();
 	ans += ";";
-    ans += data->getProduct()->getName();
+    ans += data->getProduct()->getProduct()->getName();
     ans += ";";
     ans += to_string(data->getQuantity());
     ans += ";";
@@ -22,18 +22,17 @@ string OrderItemParser::parseToStr(shared_ptr<OrderItem> data){
 
 shared_ptr<OrderItem> OrderItemParser::parseFromStr(string str){
 	stringstream ss(str);
-	string custPhone, prodName, quantity, time;
+	string custPhone, pName, pCategory, quantity, time;
 	getline(ss, custPhone, ';');
     shared_ptr<CustomerWrapper> custWrap = CustomerManager::getInstance().searchCustomer(custPhone);
     shared_ptr<Customer> customer = custWrap->getCustomer();
-	getline(ss, prodName, ';');
-    shared_ptr<ProductWrapper> prodWrap = ProductManager::getInstance().searchProduct(prodName);
-    shared_ptr<Product> product = prodWrap->getProduct();
+	getline(ss, pName, ';');
+	getline(ss, pCategory, ';');
+    shared_ptr<ProductWrapper> product = ProductManager::getInstance().searchProduct(
+		pName, pCategory);
 	getline(ss, quantity, ';');
 	int qty = stoi(quantity);
-	// int total1 = stoi(total);
     getline(ss, time, ';');
-	// getline(ss, total, ';'); 
 	char* tm = const_cast<char*>(time.c_str());
 	int orderID = OrderItemManager::getInstance().createID(customer, product);
 	return make_shared<OrderItem>(orderID, customer, product, qty, tm);
@@ -51,27 +50,22 @@ string OrderItemParser::getColumnAsStr(){
 }
 
 void OrderItemParser::readFile(){
-	// list<string> data = file_manager.readFromBeginning();
-	// // assert(getColumnAsStr() == data.front());
-	// data.pop_front();
-	// // data.pop_back();
-	// // cout<<data.back();
-	// if(data.empty())return;
-	// for(auto item : data){
-	// 	auto orderItem = parseFromStr(item);
-	// 	OrderItemManager::getInstance().addOrderItem(orderItem);
-	// }
 	list<string> data = file_manager.readFromBeginning();
 	assert(getColumnAsStr() == data.front());
 	data.pop_front();
-	if(data.empty())return;
-	string utr = data.front();
 	while(not data.empty()){
 		string str = data.front();
-		// assert(str == utr);
 		data.pop_front();
-		auto orderItem = parseFromStr(str);
-		OrderItemManager::getInstance().addOrderItem(orderItem);
+		try
+		{
+			auto orderItem = parseFromStr(str);
+			OrderItemManager::getInstance().addOrderItem(orderItem);
+		}
+		catch(const std::exception& e)
+		{
+			cerr<<"Could not read product: "<<e.what()<<endl;
+			continue;
+		}
 	}
 }
 

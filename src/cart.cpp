@@ -68,12 +68,16 @@ double Cart::checkout(){
 	if((boughtMembership) > (customer->getMembership()->getType())){
 		customer->setMembership(ToString(boughtMembership));
 		non_discountable = customer->getMembership()->getFees();
+		removeMembershipFromBill();
 	}
 	for(auto i : cartItems){
 		i.first->addToStock(-i.second);
 		assert(i.first->getStock() >= 0);
 		//create order item
-		/*TODO*/
+		time_t curtime;
+    	time(&curtime);
+		BackendService::getInstance().createOrderItem(
+			customer->getCustomer(),i.first, i.second, (char*)curtime);
 	}
 	return getTotal();
 

@@ -1,20 +1,26 @@
 #include "adminService.h"
+#include "constants.h"
 
 void AdminService::start(){
 		while(true){
 			int choice = getDM()->displayStartMenu();
 			switch (choice)
 			{
-			case 1:
+			case 1://search for product
 				try{
 					auto product = searchProduct();
 					manageProduct(product);
 				}
 				catch(...){}
 				break;
-			case 2:
-				displayProducts();break;
-			case 3:
+			case 2://add inventory stats
+				try{
+					auto product = searchProduct();
+					viewInventoryStats(product);
+				}
+				catch(...){}
+				break;
+			case 3://add new product
 				addNewProduct();break;
 			// case 4:
 				// getDM()->displayAllOrderItems();
@@ -81,10 +87,33 @@ void AdminService::manageProduct(shared_ptr<ProductWrapper> product){
 		}
 }
 
-void AdminService::viewInventoryStats(shared_ptr<ProductWrapper> product){/*TODO*/
+void AdminService::viewInventoryStats(shared_ptr<ProductWrapper> product){
 	//get all past orders including this product 
-
+	auto items = BackendService::getInstance().getAllOrdersOfProd(product);
+	auto itcopy = items;
 	//get daily total 
-
+	time_t curtime;
+    time(&curtime);
+	time_t pastTime = curtime;
+	int quantities[7] = {0};
+	for(int i = 0; i < 7; i++){
+		pastTime -= DAY;
+		for(auto it = itcopy.begin(); it != itcopy.end(); it++){
+			time_t ptime = (time_t)((*it)->getTimeStamp());
+			if((ptime > pastTime)){
+				quantities[i] += (*it)->getQuantity();
+				itcopy.erase(it++);
+			}
+		}
+	}
+	cout<<"Last week's sales:\n";
+	for(int i = 0; i < 7; i++)
+	{
+		cout<<"Day "<<i+1<<":-\n Qty: "<<
+			quantities[6-i]<<"\n Sales: "<< 
+			(product->getProduct()->getCost())*quantities[6-i]<<endl;
+	}
+	
 	//other stats 
+	/*TODO*/
 }

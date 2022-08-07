@@ -9,7 +9,9 @@ void OrderItemManager::addOrderItem(shared_ptr<OrderItem> item){
 	orderedItems.push_back(item);
 }
 
-int OrderItemManager::createID(shared_ptr<Customer> customer, shared_ptr<Product> product){
+int OrderItemManager::createID(
+	shared_ptr<Customer> customer, 
+	shared_ptr<ProductWrapper> product){
 	if(checkIfSameAsLastOrder(customer, product)){ 
 		assert(orderedItems.back()->getID() == orderCount);
 		return (orderCount);
@@ -18,12 +20,13 @@ int OrderItemManager::createID(shared_ptr<Customer> customer, shared_ptr<Product
 }
 
 bool OrderItemManager::checkIfSameAsLastOrder(
-	shared_ptr<Customer> customer, shared_ptr<Product> product){
+	shared_ptr<Customer> customer, shared_ptr<ProductWrapper> product){
 	if(orderCount == 0) return false;
+	auto last = orderedItems.back();
 	bool ans = false;
 	if(
-		(customer->getPhone() == customer->getPhone())
-		or (product->getName() == product->getName())
+		(customer->getPhone() == last->getCustomer()->getPhone())
+		and (*product == *(last->getProduct()))
 	) ans = true;
 	return ans;
 }

@@ -12,7 +12,7 @@ using namespace std;
 class OrderItemParser
 {
 private:
-	const vector<string> columns = {"custPhone", "prodName", "quantity", "time"};
+	const vector<string> columns = {"custPhone", "pName", "pCategory", "quantity", "time"};
 	IOWriter file_manager;
 	OrderItemParser(): file_manager(IOWriter("data/orderItem.data")){};
 	OrderItemParser(const OrderItemParser& s) = delete;
