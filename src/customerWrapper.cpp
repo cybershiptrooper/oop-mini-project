@@ -20,11 +20,11 @@ CustomerWrapper::CustomerWrapper(
 
 void CustomerWrapper::setMembership(const string choice){
 	customerMembership.reset();
-	if(choice == memberCategoryMap[1]) 
+	if(choice == ToString(Classic)) 
 		customerMembership = dynamic_pointer_cast<Membership>(make_shared<ClassicMembership>());
-	else if(choice == memberCategoryMap[2]) 
+	else if(choice == ToString(Gold)) 
 		customerMembership = dynamic_pointer_cast<Membership>(make_shared<GoldMembership>());
-	else if(choice == memberCategoryMap[3]) 
+	else if(choice == ToString(Platinum)) 
 		customerMembership = dynamic_pointer_cast<Membership>(make_shared<PlatinumMembership>());
 	else
 		customerMembership = dynamic_pointer_cast<Membership>(make_shared<NoMembership>());

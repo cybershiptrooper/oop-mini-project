@@ -15,7 +15,7 @@ class CustomerWrapper{
 		CustomerWrapper(
 			// const unsigned int ID,
 			const string name, const string address, const string phone,
-			const string choice = "None"
+			const string choice = "No"
 		);
 		~CustomerWrapper(){};//{delete customerMembership;}
 		auto getMembership(){return customerMembership;};

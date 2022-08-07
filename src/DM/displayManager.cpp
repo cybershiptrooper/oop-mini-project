@@ -19,26 +19,28 @@ int DisplayManager::getChoice(const unsigned int max_choices){
 
 bool DisplayManager::getBoolChoice(){
 	char choice;
+	bool ans;
 	cin >> choice;
-	if(choice !='Y' and choice != 'y' and choice !='N' and choice != 'n'){
-		clearCIN();
-		throw std::invalid_argument("No such option found");
-	}
+	if(choice =='Y' or choice == 'y') return true;
+	if(choice =='N' or choice == 'n') return false;
+	cout<<"Please select a valid option\n";
+	clearCIN();
+	throw std::invalid_argument("No such option found");
 	// cout << linebreak;
-	return choice;
+	return ans;
 }
 
 int DisplayManager::displayProductCategoryMenu(User user, bool create){
 	if(create){
 		if(user != Admin){ 
-			cout<<"You do not have the permission to dit product categories.";
+			cout<<"You do not have the permission to edit product categories.";
 			return -1;
 		}
 	}
 	int choice;
 	while(true){
 		int max_choices = BackendService::getInstance().getProductSize();
-		if(max_choices == 0 and !create){cout<<"Store is empty!\n"<<linebreak; return -1;}
+		if(max_choices == 0 and !create){cout<<"Store is empty!\n"; return -1;}
 		
 		cout<<"Select a product category\n";
 		int i = 1;
@@ -50,9 +52,9 @@ int DisplayManager::displayProductCategoryMenu(User user, bool create){
 			max_choices++;
 			cout<<max_choices<<". Create a new category of product"<<"\n";
 		}
-		else{
-			max_choices++; cout<<max_choices<<". All categories"<<"\n";
-		}
+		// else{
+		// 	max_choices++; cout<<max_choices<<". All categories"<<"\n";
+		// }
 		
 		choice = getChoice(max_choices);
 		// throw std::logic_error(to_string(choice));
@@ -128,7 +130,7 @@ void DisplayManager::displayProducts(){
 			displayProduct(product);
 		}
 	}
-	cout<<linebreak;
+	// cout<<linebreak;
 }
 
 void DisplayManager::displayProducts(string category){
@@ -139,14 +141,14 @@ void DisplayManager::displayProducts(string category){
 		cout<<i++<<". ";
 		displayProduct(*it);
 	}
-	cout<<linebreak;
+	// cout<<linebreak;
 }
 
 void DisplayManager::displayCustomer(shared_ptr<CustomerWrapper> customer){
 	cout << "Name: " <<  customer->getCustomer()->getName() << endl;
     cout << "Phone: " << customer->getCustomer()->getPhone() << endl;
     cout << "Address: " << customer->getCustomer()->getAddress() << endl;
-    cout << "Membership: " << customer->getMembership()->getType() << endl<<endl;
+    cout << "Membership: " << ToString(customer->getMembership()->getType()) << endl<<endl;
 }
 
 void DisplayManager::displayCustomer(shared_ptr<Customer> customer){

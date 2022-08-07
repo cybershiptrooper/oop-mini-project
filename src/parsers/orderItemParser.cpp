@@ -16,7 +16,7 @@ string OrderItemParser::parseToStr(shared_ptr<OrderItem> data){
     ans += to_string(data->getQuantity());
     ans += ";";
     ans += string(data->getTimeStamp());
-	ans += ";\n";
+	ans += ";";
 	return ans;
 }
 

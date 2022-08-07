@@ -9,7 +9,7 @@ shared_ptr<ProductWrapper> FrontendService::searchProduct(){
 	try{	
 		if(choice > BackendService::getInstance().getProductSize())
 			product = BackendService::getInstance().searchProduct(pname);
-		else	
+		else
 			product = BackendService::getInstance().searchProduct(pname, choice);
 	}
 	catch(...){

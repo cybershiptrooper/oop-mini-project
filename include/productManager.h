@@ -9,7 +9,7 @@ class ProductManager
 {
 private:
     map<string, list<shared_ptr<ProductWrapper>>> registeredProducts;
-    ProductManager() {cerr<<"Product Manager\n";};
+    ProductManager() {};
     ProductManager(const ProductManager &s) = delete;
     ProductManager &operator=(const ProductManager &s) = delete;
 

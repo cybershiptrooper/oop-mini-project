@@ -50,11 +50,12 @@ public:
         string category = getCategory(choice); 
         return PM.getCatalouge()[category]; 
     }
+    unsigned int getProductSize(){return PM.getCatalouge().size();}
 
     string getCategory(int choice);
     shared_ptr<ProductWrapper> addProduct(string name, double cost, string category, int stock);
     bool createCategory(string category){return PM.createCategory(category);}
-    unsigned int getProductSize(){return PM.getCatalouge().size();}
+    shared_ptr<CustomerWrapper> addCustomer(string name, string address, string phone);
 
     shared_ptr<OrderItem> createOrderItem(
             shared_ptr<Customer> customer,
@@ -73,4 +74,10 @@ public:
     void syncOrders(){OrderItemParser::getInstance().writeFile();}
     void syncCustomers(){CustomerParser::getInstance().writeFile();}
     void syncFiles(){syncProducts(); syncOrders(); syncCustomers();}
+
+    shared_ptr<CustomerWrapper> searchCustomer(const string phone){
+        return CM.searchCustomer(phone);
+    };
+
+    void updatePhone(shared_ptr<Customer> customer, string phone);
 };

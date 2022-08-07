@@ -15,12 +15,18 @@ public:
     ProductWrapper(
         const string name, const double cost, const string category, const int stock) :  category(category), stock(stock) { product = shared_ptr<Product>(new Product(name, cost)); };
     ~ProductWrapper(){};
-
     int getStock() { return stock; }
     void updateStock(int newStock) { stock = newStock; }
-    auto getProduct() { return product; }
-    auto getCategory(){return category;}
+    auto getProduct() const { return product; }
+    auto getCategory() const {return category;}
     void addToStock(int qty){stock += qty;};
+    bool operator==(const ProductWrapper p1){
+        if(
+            (p1.getProduct()->getName() == getProduct()->getName())
+            and (p1.getCategory() == getCategory())
+        ){ return true;}
+        return false;
+    };
 };
 
 // TODO

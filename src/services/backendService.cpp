@@ -19,6 +19,21 @@ shared_ptr<ProductWrapper> BackendService::addProduct(
 	return product;
 }
 
+shared_ptr<CustomerWrapper> BackendService::addCustomer(
+	string name, string address, string phone){
+	auto customer = make_shared<CustomerWrapper>(name, address, phone);
+	CM.addCustomer(customer);
+	return customer;
+}
+
+void BackendService::updatePhone(shared_ptr<Customer> customer, string phone){
+	for(auto i : CM.getCustomerList()){
+		auto c1 = i->getCustomer();
+		if(c1->getPhone() == phone) throw std::invalid_argument("Phone not unique");
+	}
+	customer->updatePhone(phone);
+}
+
 shared_ptr<OrderItem> BackendService::createOrderItem(
 	shared_ptr<Customer> customer,
 	shared_ptr<ProductWrapper> product,

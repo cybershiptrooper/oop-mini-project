@@ -9,6 +9,10 @@ shared_ptr<CustomerWrapper> CustomerManager::searchCustomer(const string phone){
 }
 
 void CustomerManager::addCustomer(shared_ptr<CustomerWrapper> customer){
+	for(auto i : registeredCustomers){
+		if(*(customer->getCustomer()) == *(i->getCustomer()))
+			throw std::invalid_argument("Customer already exists");
+	}
 	registeredCustomers.push_back(customer);
 	// writeline();
 }

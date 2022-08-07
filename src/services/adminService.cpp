@@ -81,7 +81,7 @@ void AdminService::manageProduct(shared_ptr<ProductWrapper> product){
 		}
 }
 
-void AdminService::viewInventoryStats(shared_ptr<ProductWrapper> product){
+void AdminService::viewInventoryStats(shared_ptr<ProductWrapper> product){/*TODO*/
 	//get all past orders including this product 
 
 	//get daily total 

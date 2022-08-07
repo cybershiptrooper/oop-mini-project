@@ -12,7 +12,7 @@ private:
 public:
     Product(const string name, const double cost) : name(name), cost(cost) {}
     ~Product() {}
-    string getName() { return name; }
+    const string getName() const { return name; }
     double getCost() { return cost; }
     void updateCost(double newCost) { cost = newCost; }
 };

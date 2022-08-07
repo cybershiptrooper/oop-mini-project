@@ -8,8 +8,8 @@ string CustomerParser::parseToStr(shared_ptr<CustomerWrapper> data){
 	ans += ";";
 	ans += (data->getCustomer()->getPhone());
 	ans += ";";
-	ans += data->getMembership()->getType();
-	ans += ";\n";
+	ans += ToString(data->getMembership()->getType());
+	ans += ";";
 	return ans;
 }
 

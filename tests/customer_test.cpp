@@ -57,6 +57,7 @@ bool testParserClass(){
 	cout << "  Testing Parser Class\n";
 	CustomerParser::getInstance().readFile();
 	cout << "  Test completed\n";
+	return true;
 };
 bool testManagerClass(){
 	CustomerManager::getInstance();
