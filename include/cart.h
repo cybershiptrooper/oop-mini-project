@@ -37,6 +37,7 @@ public:
 	};
 	void removeMembershipFromBill(){
 		boughtMembership = No;
+		// int s1 = cartItems.s
 		removeProductFromCart(membershipProd);
 		membershipProd.reset();
 	};

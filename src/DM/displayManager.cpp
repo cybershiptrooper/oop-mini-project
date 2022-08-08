@@ -3,7 +3,9 @@
 int DisplayManager::getChoice(const unsigned int max_choices){
 		int choice;
 		try{
-			cin >> choice;
+			string in;
+			getline(cin, in);
+			choice = stoi(in);
 			// cout << linebreak;
 			if(choice > max_choices or choice < 1){
 				throw std::invalid_argument("No such option found");
@@ -11,7 +13,7 @@ int DisplayManager::getChoice(const unsigned int max_choices){
 		}
 		catch(...){
 			cout<<"Please select a valid option\n";
-			clearCIN();
+			// clearCIN();
 			choice = -1;
 		}
 		return choice;
@@ -21,10 +23,10 @@ bool DisplayManager::getBoolChoice(){
 	char choice;
 	bool ans;
 	cin >> choice;
+	clearCIN();
 	if(choice =='Y' or choice == 'y') return true;
 	if(choice =='N' or choice == 'n') return false;
 	cout<<"Please select a valid option\n";
-	clearCIN();
 	throw std::invalid_argument("No such option found");
 	// cout << linebreak;
 	return ans;
@@ -66,9 +68,7 @@ int DisplayManager::displayProductCategoryMenu(User user, bool create){
 string DisplayManager::getName(string dataItem, string prefix){
 	cout<<prefix<<dataItem<<":\n";
 	string str;
-	// clearCIN();
-	// getline(cin, str);
-	cin>>str;
+	getline(cin, str);
 	return str;
 }
 
@@ -82,6 +82,7 @@ int DisplayManager::getNumber(string dataItem){
 			break;
 		}
 		catch(...){
+			clearCIN();
 			cout<<"Please enter a non-negative integer\n";
 		}
 	}
@@ -98,6 +99,7 @@ double DisplayManager::getFloatingNumber(string dataItem){
 			break;
 		}
 		catch(...){
+			clearCIN();
 			cout<<"Please enter a non-negative numeric quantity\n";
 		}
 	}

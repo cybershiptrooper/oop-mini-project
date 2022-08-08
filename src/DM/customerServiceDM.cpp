@@ -93,21 +93,23 @@ void CustomerServiceDisplayManager::confirmCheckout(
 }
 
 void assertcheck(string phone){
+	// cerr<<"--> "<<(phone)<<endl;
 	for(int i = 0; i < phone.length(); i++){
 		if(phone[i] < '0' or phone[i] > '9' )
 			throw std::invalid_argument("Bad letter");
 	}
 	if(phone.length()!=10)throw std::invalid_argument("Bad length");
 	if(phone[0] < '7')throw std::invalid_argument("Bad number");
-	// cout<<"--> "<<stol(phone)<<endl;
+	
 }
 
 string CustomerServiceDisplayManager::getPhone(){
 	string phone;
 	cout<<"Enter phone number:\n --> ";
-	cin >> phone;
 	while(true){	
 		try{
+			cin >> phone;
+			clearCIN();
 			assertcheck(phone);
 			return phone;
 		}
@@ -126,11 +128,11 @@ int CustomerServiceDisplayManager::displayMembershipMenu(){
 		<<ClassicMembership().getFees()
 		<<", discount: "<<ClassicMembership().getDiscount()<<")\n";
 	cout<<"2. Gold Membership (cost: "
-		<<ClassicMembership().getFees()
-		<<", discount: "<<ClassicMembership().getDiscount()<<")\n";
+		<<GoldMembership().getFees()
+		<<", discount: "<<GoldMembership().getDiscount()<<")\n";
 	cout<<"3. Platinum Membership (cost: "
-		<<ClassicMembership().getFees()
-		<<", discount: "<<ClassicMembership().getDiscount()<<")\n";
+		<<PlatinumMembership().getFees()
+		<<", discount: "<<PlatinumMembership().getDiscount()<<")\n";
 	cout<<"4. Remove membership purchase\n -->";
 	int choice = getChoice(4);
 	if(choice == -1) return displayMembershipMenu();

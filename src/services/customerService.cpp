@@ -168,7 +168,7 @@ void CustomerService::manageCart(){
 			break;
 		case 6://checkout
 			try{
-				double total=cart->checkout();
+				double total = cart->checkout();
 				getDM()->confirmCheckout(total, cart->getCartItems());
 				resetCart();
 				return;

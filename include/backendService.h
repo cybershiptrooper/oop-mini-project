@@ -7,6 +7,7 @@
 #include "productParser.h"
 #include "orderItemParser.h"
 #include <iostream>
+#include "time.h"
 class BackendService {
 private:
 	
@@ -62,7 +63,7 @@ public:
             shared_ptr<Customer> customer,
 	        shared_ptr<ProductWrapper> product,
 	        int qty,
-	        char* tm);
+	        time_t tm);
     bool checkCanBuy(shared_ptr<ProductWrapper> product, int qty){
         return (product->getStock() >= qty);
     };

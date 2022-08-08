@@ -11,19 +11,19 @@ class OrderItem{
 		shared_ptr<Customer> customer;
         shared_ptr<ProductWrapper> product;
         int qty;
-		char* tm;
+		time_t tm;
         int total;
 	public:
         OrderItem(int id,
 	        shared_ptr<Customer> customer,
             shared_ptr<ProductWrapper> product,
             int qty,
-            char* tm): id(id), customer(customer), product(product), qty(qty){}
+            time_t tm): id(id), customer(customer), product(product), qty(qty), tm(tm){}
         //getter methods
         int getID(){return id;};
         shared_ptr<Customer> getCustomer(){return customer;};
         shared_ptr<ProductWrapper>  getProduct(){return product;};
         int getQuantity(){return qty;};
-        char* getTimeStamp(){return tm;};
+        time_t getTimeStamp(){return tm;};
         double getTotal(){return (product->getProduct()->getCost())*qty;};
 };

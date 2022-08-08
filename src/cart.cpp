@@ -70,14 +70,15 @@ double Cart::checkout(){
 		non_discountable = customer->getMembership()->getFees();
 		removeMembershipFromBill();
 	}
+	time_t curtime;
+	time(&curtime);
 	for(auto i : cartItems){
-		i.first->addToStock(-i.second);
-		assert(i.first->getStock() >= 0);
+		// cerr<<cartItems.size();
+		// i.first->addToStock(-i.second);
+		// assert(i.first->getStock() >= 0);
 		//create order item
-		time_t curtime;
-    	time(&curtime);
 		BackendService::getInstance().createOrderItem(
-			customer->getCustomer(),i.first, i.second, (char*)curtime);
+			customer->getCustomer(),i.first, i.second, curtime);
 	}
 	return getTotal();
 

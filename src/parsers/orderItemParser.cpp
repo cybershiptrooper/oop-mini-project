@@ -4,19 +4,26 @@
 #include "customer.h"
 #include "productManager.h"
 #include "iowriter.h"
+#include "time.h"
 // #include <iostream>
 string OrderItemParser::parseToStr(shared_ptr<OrderItem> data){
 	string ans = "";
-    ans += to_string(data->getID());
-	ans += ";";
+    // ans += to_string(data->getID());
+	// ans += ";";
 	ans += data->getCustomer()->getPhone();
 	ans += ";";
     ans += data->getProduct()->getProduct()->getName();
     ans += ";";
+	ans += data->getProduct()->getCategory();
+    ans += ";";
     ans += to_string(data->getQuantity());
     ans += ";";
-    ans += string(data->getTimeStamp());
+	string time = to_string(data->getTimeStamp());
+	// cerr<<"time"<<endl<<data->getTimeStamp()<<endl;
+	// cerr<<time;
+    ans += string(time);
 	ans += ";";
+	// cout<<ans<<endl<<data->getTimeStamp()<<" "<<time<<endl;
 	return ans;
 }
 
@@ -35,7 +42,7 @@ shared_ptr<OrderItem> OrderItemParser::parseFromStr(string str){
     getline(ss, time, ';');
 	char* tm = const_cast<char*>(time.c_str());
 	int orderID = OrderItemManager::getInstance().createID(customer, product);
-	return make_shared<OrderItem>(orderID, customer, product, qty, tm);
+	return make_shared<OrderItem>(orderID, customer, product, qty, (time_t)tm);
 }
 
 //should be method of Parser class

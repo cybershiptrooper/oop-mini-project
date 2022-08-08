@@ -40,16 +40,18 @@ shared_ptr<OrderItem> BackendService::createOrderItem(
 	shared_ptr<Customer> customer,
 	shared_ptr<ProductWrapper> product,
 	int qty,
-	char* tm){
+	time_t tm){
 		assert(checkCanBuy(product, qty));
 		//remove from inventory
 		product->addToStock(-qty);
 		//store in RAM
 		int orderID = OM.createID(customer, product);
+		
 		auto order = make_shared<OrderItem>(
 			orderID, 
 			customer, product,
 			qty, tm);
+		// cerr<<"[backend]"<<tm << " " <<order->getTimeStamp()<<endl;
 		OM.addOrderItem(order);
 		//write to File
 		syncOrders();
