@@ -4,6 +4,10 @@ project(StoreManager)
 set(CMAKE_CXX_STANDARD 14)
 
 include_directories(StoreManager PUBLIC "include")
+# add_subdirectory(boost)
+find_package(Boost 1.40 COMPONENTS program_options REQUIRED)
+include_directories(${Boost_INCLUDE_DIR})
+link_directories(${Boost_LIBRARY_DIR})
 
 set(CMAKE_BUILD_TYPE Debug)
 
@@ -31,6 +35,8 @@ add_executable(StoreManager
 
 	src/smProgram.cpp
 	src/main.cpp)
+target_link_libraries( StoreManager ${Boost_LIBRARIES} )
+	
 	
 add_executable(StoreManager_test  
 	src/iowriter.cpp 
@@ -54,6 +60,7 @@ add_executable(StoreManager_test
 	src/services/backendService.cpp
 	src/cart.cpp
 	tests/main.cpp)
+target_link_libraries( StoreManager_test ${Boost_LIBRARIES} )
 
 
 
