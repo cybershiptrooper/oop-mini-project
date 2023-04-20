@@ -11,6 +11,7 @@ int SMProgramDisplayManager::displayStartMenu(){
 void SMProgram::start(){
 	cout<<"Welcome to your Store Manager.\n";
 	while(true){
+		cout<<"--------------------------\n";
 		int choice = SMProgramDisplayManager().displayStartMenu();
 		switch (choice)
 		{

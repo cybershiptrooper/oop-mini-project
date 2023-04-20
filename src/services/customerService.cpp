@@ -48,8 +48,11 @@ void CustomerService::manageProduct(shared_ptr<ProductWrapper> product){
 	else{
 		if(getDM()->addToCart()){
 			int qty = getDM()->getNumber("quantity");
-			cart->addProduct(product, qty);
-			cout<<"Added to cart!\n";
+			try{
+				cart->addProduct(product, qty);
+				cout<<"Added to cart!\n";
+			}
+			catch(...){cout<<"Cannot buy product\n";}
 		}
 	}
 }

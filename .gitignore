@@ -52,3 +52,6 @@ _deps
 
 # Misc
 .DS_Store
+latex/
+html/
+Doxy*
